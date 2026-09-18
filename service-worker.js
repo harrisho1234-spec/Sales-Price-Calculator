@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sales-price-calculator-v21';
+const CACHE_NAME = 'sales-price-calculator-v22';
 const APP_SHELL = [
   './',
   './index.html',
@@ -6,6 +6,7 @@ const APP_SHELL = [
   './ultra-compact-items.js',
   './brand-group.js',
   './compact-settings.js',
+  './saved-items-list.js',
   './manifest.json',
   './favicon.png',
   './app-icon.png',
@@ -37,6 +38,9 @@ function patchHtml(html){
   }
   if(!html.includes('compact-settings.js')){
     html = html.replace('</body>', '<script src="./compact-settings.js?v=2"></script>\n</body>');
+  }
+  if(!html.includes('saved-items-list.js')){
+    html = html.replace('</body>', '<script src="./saved-items-list.js?v=1"></script>\n</body>');
   }
   return html;
 }
