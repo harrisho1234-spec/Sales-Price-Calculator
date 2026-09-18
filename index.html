@@ -4,124 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sales Price Calculator</title>
-  <style>
-    :root{
-      --bg:#f5f6f8;
-      --card:#ffffff;
-      --text:#1d2433;
-      --muted:#6b7280;
-      --line:#e6e8ee;
-      --primary:#111827;
-      --primary2:#2f394b;
-      --good:#16803c;
-      --warn:#b36a00;
-      --bad:#b42318;
-      --soft:#f9fafb;
-      --radius:16px;
-      --shadow:0 8px 28px rgba(15,23,42,.06);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Inter, ui-sans-serif, system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
-    .app{max-width:1600px;margin:0 auto;padding:24px}
-    .topbar{
-      display:flex;align-items:center;justify-content:space-between;gap:16px;
-      margin-bottom:18px;
-    }
-    h1{font-size:26px;margin:0}
-    .subtitle{font-size:13px;color:var(--muted);margin-top:4px}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
-    button{
-      border:1px solid var(--line);background:#fff;color:var(--text);padding:10px 14px;
-      border-radius:10px;font-weight:700;cursor:pointer;
-    }
-    button:hover{filter:brightness(.98)}
-    button.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
-    button.danger{color:var(--bad)}
-    button.small{padding:7px 10px;font-size:12px}
-    .card{
-      background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-      box-shadow:var(--shadow);padding:18px;margin-bottom:16px;
-    }
-    .card-title{
-      font-weight:800;font-size:15px;margin-bottom:14px;display:flex;justify-content:space-between;gap:12px;align-items:center;
-    }
-    .grid{display:grid;gap:12px}
-    .grid.settings{grid-template-columns:repeat(5,1fr)}
-    label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:6px}
-    input,select{
-      width:100%;border:1px solid #d9dde6;border-radius:9px;padding:10px 11px;background:#fff;
-      color:var(--text);font-size:14px;outline:none;
-    }
-    input:focus,select:focus{border-color:#9aa3b2;box-shadow:0 0 0 3px rgba(17,24,39,.06)}
-    .hint{font-size:11px;color:var(--muted);margin-top:5px}
-    .connection{display:flex;align-items:end;gap:8px}
-    .connection > div{flex:1}
-    .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#9ca3af;margin-right:6px}
-    .status-dot.ok{background:var(--good)}
-    .status-dot.bad{background:var(--bad)}
-    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
-    table{width:100%;border-collapse:collapse;min-width:2150px;background:#fff}
-    th,td{padding:9px;border-bottom:1px solid var(--line);vertical-align:top}
-    th{
-      background:#f8f9fb;position:sticky;top:0;z-index:2;text-align:left;font-size:11px;
-      color:#5f6776;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;
-    }
-    td{font-size:13px}
-    td input,td select{min-width:100px;padding:8px 9px}
-    .photo-box{
-      width:74px;height:74px;border:1px dashed #cfd5df;border-radius:10px;background:#fafafa;
-      display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;position:relative;
-    }
-    .photo-box img{width:100%;height:100%;object-fit:cover;display:none}
-    .photo-box span{font-size:11px;color:var(--muted);text-align:center;padding:5px}
-    .money{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
-    .metric-good{color:var(--good)}
-    .metric-warn{color:var(--warn)}
-    .metric-bad{color:var(--bad)}
-    .summary-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
-    .metric{
-      border:1px solid var(--line);border-radius:12px;padding:14px;background:#fbfcfd;
-    }
-    .metric .k{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase}
-    .metric .v{font-size:22px;font-weight:850;margin-top:6px;font-variant-numeric:tabular-nums}
-    .bulk{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
-    .bulk .field{width:150px}
-    .notice{
-      padding:12px 14px;border-radius:10px;background:#f7f7f8;border:1px solid var(--line);font-size:12px;color:#4b5563;
-    }
-    .toast{
-      position:fixed;right:20px;bottom:20px;max-width:420px;padding:13px 16px;border-radius:12px;
-      background:#111827;color:#fff;font-size:13px;box-shadow:0 14px 38px rgba(0,0,0,.22);
-      transform:translateY(20px);opacity:0;pointer-events:none;transition:.2s;z-index:50;
-    }
-    .toast.show{transform:translateY(0);opacity:1}
-    .toast.error{background:#7f1d1d}
-    .muted{color:var(--muted)}
-    .formula-note{font-size:11px;line-height:1.45;color:var(--muted);max-width:300px}
-    .footer{font-size:11px;color:var(--muted);text-align:center;padding:14px 0 6px}
-    @media(max-width:1100px){
-      .grid.settings{grid-template-columns:1fr 1fr}
-      .summary-grid{grid-template-columns:repeat(3,1fr)}
-    }
-    @media(max-width:680px){
-      .app{padding:12px}
-      .topbar{align-items:flex-start;flex-direction:column}
-      .grid.settings{grid-template-columns:1fr}
-      .summary-grid{grid-template-columns:1fr 1fr}
-      .actions{width:100%}.actions button{flex:1}
-    }
-  
-    .brand-row{display:flex;align-items:center;gap:14px}
-    .brand-icon{width:54px;height:54px;object-fit:contain;flex:0 0 auto}
-    @media(max-width:680px){.brand-icon{width:46px;height:46px}}
-
-  </style>
-
   <meta name="theme-color" content="#111827" />
   <meta name="application-name" content="Sales Price Calculator" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -130,660 +12,328 @@
   <link rel="manifest" href="./manifest.json" />
   <link rel="icon" type="image/png" href="./favicon.png" />
   <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-
+  <style>
+    :root{
+      --bg:#f5f6f8;--card:#fff;--text:#1d2433;--muted:#6b7280;--line:#e6e8ee;
+      --primary:#111827;--primary2:#2f394b;--good:#16803c;--warn:#b36a00;--bad:#b42318;
+      --soft:#f9fafb;--radius:16px;--shadow:0 8px 28px rgba(15,23,42,.06);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+    .app{max-width:1650px;margin:0 auto;padding:24px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+    .brand-row{display:flex;align-items:center;gap:14px}.brand-icon{width:54px;height:54px;object-fit:contain;flex:0 0 auto}
+    h1{font-size:26px;margin:0}.subtitle{font-size:13px;color:var(--muted);margin-top:4px}
+    .actions,.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    button{border:1px solid var(--line);background:#fff;color:var(--text);padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+    button:hover:not(:disabled){filter:brightness(.98)}button:disabled{opacity:.5;cursor:not-allowed}
+    button.primary{background:var(--primary);color:#fff;border-color:var(--primary)}button.danger{color:var(--bad)}button.danger-fill{background:#991b1b;color:#fff;border-color:#991b1b}
+    button.small{padding:7px 10px;font-size:12px}
+    .tabs{display:flex;gap:6px;background:#e9ebef;padding:5px;border-radius:12px;margin-bottom:16px;overflow:auto}
+    .tab-btn{border:0;background:transparent;padding:9px 15px;white-space:nowrap;border-radius:9px;color:#5d6472}
+    .tab-btn.active{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(15,23,42,.08)}
+    .tab-panel{display:none}.tab-panel.active{display:block}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:16px}
+    .card-title{font-weight:800;font-size:15px;margin-bottom:14px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .grid{display:grid;gap:12px}.grid.settings{grid-template-columns:repeat(5,1fr)}.grid.template-form{grid-template-columns:1.2fr 1fr .8fr 1fr .8fr 2fr}
+    label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:6px}
+    input,select,textarea{width:100%;border:1px solid #d9dde6;border-radius:9px;padding:10px 11px;background:#fff;color:var(--text);font-size:14px;outline:none;font-family:inherit}
+    textarea{resize:vertical;min-height:42px}
+    input:focus,select:focus,textarea:focus{border-color:#9aa3b2;box-shadow:0 0 0 3px rgba(17,24,39,.06)}
+    input[type="checkbox"]{width:auto;box-shadow:none}.hint{font-size:11px;color:var(--muted);margin-top:5px}.muted{color:var(--muted)}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;background:#fff}.items-table{min-width:2280px}.history-table{min-width:1300px}.template-table{min-width:1050px}
+    th,td{padding:9px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f8f9fb;position:sticky;top:0;z-index:2;text-align:left;font-size:11px;color:#5f6776;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap}td{font-size:13px}td input,td select{min-width:100px;padding:8px 9px}
+    tr.selected{background:#fff8f8}.photo-box{width:74px;height:74px;border:1px dashed #cfd5df;border-radius:10px;background:#fafafa;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;position:relative}.photo-box img{width:100%;height:100%;object-fit:cover;display:none}.photo-box span{font-size:11px;color:var(--muted);text-align:center;padding:5px}
+    .money{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}.metric-good{color:var(--good)}.metric-warn{color:var(--warn)}.metric-bad{color:var(--bad)}
+    .summary-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.metric{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fbfcfd}.metric .k{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase}.metric .v{font-size:22px;font-weight:850;margin-top:6px;font-variant-numeric:tabular-nums}
+    .bulk{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.bulk .field{width:160px}.notice{padding:12px 14px;border-radius:10px;background:#f7f7f8;border:1px solid var(--line);font-size:12px;color:#4b5563}.formula-note{font-size:11px;line-height:1.45;color:var(--muted);max-width:360px}
+    .search{min-width:280px;max-width:440px}.badge{display:inline-flex;padding:4px 8px;border-radius:999px;background:#eef0f4;font-size:11px;font-weight:700;color:#596171}.badge.good{background:#eaf7ef;color:#166534}
+    .empty{padding:34px 16px;text-align:center;color:var(--muted);font-size:13px}.footer{font-size:11px;color:var(--muted);text-align:center;padding:14px 0 6px}
+    .toast{position:fixed;right:20px;bottom:20px;max-width:460px;padding:13px 16px;border-radius:12px;background:#111827;color:#fff;font-size:13px;box-shadow:0 14px 38px rgba(0,0,0,.22);transform:translateY(20px);opacity:0;pointer-events:none;transition:.2s;z-index:50}.toast.show{transform:translateY(0);opacity:1}.toast.error{background:#7f1d1d}
+    @media(max-width:1200px){.grid.settings{grid-template-columns:repeat(3,1fr)}.grid.template-form{grid-template-columns:repeat(3,1fr)}.summary-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:680px){.app{padding:12px}.topbar{align-items:flex-start;flex-direction:column}.brand-icon{width:46px;height:46px}.grid.settings,.grid.template-form{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr 1fr}.toolbar{width:100%}.toolbar button{flex:1}.search{min-width:100%;max-width:none}}
+  </style>
 </head>
 <body>
 <div class="app">
   <div class="topbar">
-    <div>
-      <div class="brand-row">
-        <img src="./app-icon.png" alt="Sales Price Calculator" class="brand-icon">
-        <div>
-          <h1>Sales Price Calculator</h1>
-          <div class="subtitle">Costing → Freight → Landed Cost → Sales Formula → Discount → Profit & Margin</div>
-        </div>
-      </div>
+    <div class="brand-row">
+      <img src="./app-icon.png" alt="Sales Price Calculator" class="brand-icon">
+      <div><h1>Sales Price Calculator</h1><div class="subtitle">Costing → Freight → Sales Formula → Actual Sales → Profit & Margin</div></div>
     </div>
-    <div class="actions">
-      <button id="installBtn" style="display:none" onclick="installApp()">Install App</button>
-      <button onclick="addItem()">+ Add Item</button>
-      <button onclick="newCalculation()">New Calculation</button>
-      <button class="primary" id="saveBtn" onclick="saveCalculation()">Save to Google Sheet</button>
-    </div>
+    <div class="actions"><button id="installBtn" style="display:none" onclick="installApp()">Install App</button></div>
   </div>
 
-  <div class="card">
-    <div class="card-title">Calculator Settings</div>
-    <div class="grid settings">
-      <input id="apiUrl" type="hidden">
-      <div>
-        <label>CNY per 1 USD</label>
-        <input id="cnyRate" type="number" min="0" step="0.0001" value="7.10" oninput="saveSettings();calculateAll()">
-        <div class="hint">CNY ÷ rate = USD</div>
-      </div>
-      <div>
-        <label>EUR to USD</label>
-        <input id="eurRate" type="number" min="0" step="0.0001" value="1.17" oninput="saveSettings();calculateAll()">
-        <div class="hint">EUR × rate = USD</div>
-      </div>
-      <div>
-        <label>Minimum Margin Warning</label>
-        <input id="minMargin" type="number" step="0.1" value="30" oninput="saveSettings();calculateAll()">
-        <div class="hint">Margin below this turns red.</div>
-      </div>
-      <div>
-        <label>Shared Freight (USD)</label>
-        <input id="sharedFreight" type="number" min="0" step="0.01" value="0" oninput="calculateAll()">
-      </div>
-      <div>
-        <label>Freight Allocation</label>
-        <select id="freightMethod" onchange="calculateAll()">
-          <option value="value">By Cost Value</option>
-          <option value="quantity">By Quantity</option>
-          <option value="manual">Manual per Item</option>
-          <option value="none">No Shared Freight</option>
-        </select>
-      </div>
-    </div>
-    <div style="margin-top:12px" class="formula-note">
-      Currency rates are manually controlled so your costing does not change unexpectedly.
-      Update them whenever your company changes its internal rate.
-    </div>
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="calculator" onclick="showTab('calculator')">Calculator</button>
+    <button class="tab-btn" data-tab="saved" onclick="showTab('saved')">Saved Items</button>
+    <button class="tab-btn" data-tab="templates" onclick="showTab('templates')">Brand Formula Templates</button>
   </div>
 
-  <div class="card">
-    <div class="card-title">
-      <span>Items</span>
-      <span class="muted" id="itemCount">0 items</span>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Photo</th>
-            <th>Code / Product</th>
-            <th>Brand</th>
-            <th>Size / Description</th>
-            <th>Qty</th>
-            <th>Supplier Cost</th>
-            <th>Currency</th>
-            <th>Unit Cost USD</th>
-            <th>Freight USD</th>
-            <th>Landed / Unit</th>
-            <th>Formula</th>
-            <th>Formula Value</th>
-            <th>Calculated Sales / Unit</th>
-            <th>Discount</th>
-            <th>Discount Value</th>
-            <th>Final / Unit</th>
-            <th>Actual Sales / Unit</th>
-            <th>Profit Total</th>
-            <th>Margin</th>
-            <th>Markup</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="itemsBody"></tbody>
-      </table>
-    </div>
-
-    <div style="margin-top:12px" class="notice">
-      <b>Formula choices:</b>
-      Multiplier = Landed Cost × X.
-      Markup % = Landed Cost × (1 + markup%).
-      Target Margin % = Landed Cost ÷ (1 − target margin%).
-      Manual = enter the sales price directly.
-      <br><b>Actual Sales Price:</b> enter the real selling price if it differs from the calculated/final price.
-      If left blank, profit and margin use the Final / Unit price.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Apply Discount to All Items</div>
-    <div class="bulk">
-      <div class="field">
-        <label>Discount Type</label>
-        <select id="bulkDiscountType">
-          <option value="percent">Percent %</option>
-          <option value="amount">Amount USD / unit</option>
-        </select>
+  <section id="tab-calculator" class="tab-panel active">
+    <div class="card">
+      <div class="card-title"><span>Calculator Actions</span></div>
+      <div class="toolbar">
+        <button onclick="addItem()">+ Add Item</button>
+        <button onclick="newCalculation()">New Calculation</button>
+        <button class="primary" id="saveBtn" onclick="saveCalculation()">Save to Google Sheet</button>
       </div>
-      <div class="field">
-        <label>Discount Value</label>
-        <input id="bulkDiscountValue" type="number" min="0" step="0.01" value="0">
+    </div>
+
+    <div class="card">
+      <div class="card-title">Calculator Settings</div>
+      <div class="grid settings">
+        <input id="apiUrl" type="hidden">
+        <div><label>CNY per 1 USD</label><input id="cnyRate" type="number" min="0" step="0.0001" value="7.10" oninput="saveSettings();calculateAll()"><div class="hint">CNY ÷ rate = USD</div></div>
+        <div><label>EUR to USD</label><input id="eurRate" type="number" min="0" step="0.0001" value="1.17" oninput="saveSettings();calculateAll()"><div class="hint">EUR × rate = USD</div></div>
+        <div><label>Minimum Margin Warning</label><input id="minMargin" type="number" step="0.1" value="30" oninput="saveSettings();calculateAll()"><div class="hint">Margin below this turns red.</div></div>
+        <div><label>Shared Freight (USD)</label><input id="sharedFreight" type="number" min="0" step="0.01" value="0" oninput="calculateAll()"></div>
+        <div><label>Freight Allocation</label><select id="freightMethod" onchange="calculateAll()"><option value="value">By Cost Value</option><option value="quantity">By Quantity</option><option value="manual">Manual per Item</option><option value="none">No Shared Freight</option></select></div>
       </div>
-      <button onclick="applyBulkDiscount()">Apply to All</button>
+      <div style="margin-top:12px" class="formula-note">Currency rates are manually controlled so your costing does not change unexpectedly. Brand templates can be selected in each item's Brand field.</div>
     </div>
-  </div>
 
-  <div class="card">
-    <div class="card-title">Calculation Summary</div>
-    <div class="summary-grid">
-      <div class="metric"><div class="k">Total Item Cost</div><div class="v" id="sumCost">$0.00</div></div>
-      <div class="metric"><div class="k">Total Freight</div><div class="v" id="sumFreight">$0.00</div></div>
-      <div class="metric"><div class="k">Total Landed Cost</div><div class="v" id="sumLanded">$0.00</div></div>
-      <div class="metric"><div class="k">Sales Before Discount</div><div class="v" id="sumBefore">$0.00</div></div>
-      <div class="metric"><div class="k">Actual / Final Sales</div><div class="v" id="sumSales">$0.00</div></div>
-      <div class="metric"><div class="k">Gross Profit</div><div class="v" id="sumProfit">$0.00</div></div>
+    <div class="card">
+      <div class="card-title"><span>Items</span><span class="muted" id="itemCount">0 items</span></div>
+      <datalist id="brandTemplateList"></datalist>
+      <div class="table-wrap">
+        <table class="items-table">
+          <thead><tr>
+            <th>Photo</th><th>Code / Product</th><th>Brand</th><th>Size / Description</th><th>Qty</th><th>Supplier Cost</th><th>Currency</th><th>Unit Cost USD</th><th>Freight USD</th><th>Landed / Unit</th><th>Formula</th><th>Formula Value</th><th>Calculated Sales / Unit</th><th>Discount</th><th>Discount Value</th><th>Final / Unit</th><th>Actual Sales / Unit</th><th>Profit Total</th><th>Margin</th><th>Markup</th><th></th>
+          </tr></thead>
+          <tbody id="itemsBody"></tbody>
+        </table>
+      </div>
+      <div style="margin-top:12px" class="notice"><b>Brand template:</b> choose a stored brand from the Brand field to apply its pricing formula automatically, or type any brand manually and set the formula yourself.<br><b>Actual Sales Price:</b> if entered, profit and margin use the actual price. If blank, they use Final / Unit.</div>
     </div>
-    <div style="margin-top:12px" class="summary-grid">
-      <div class="metric"><div class="k">Overall Margin</div><div class="v" id="sumMargin">0.00%</div></div>
-      <div class="metric"><div class="k">Overall Markup</div><div class="v" id="sumMarkup">0.00%</div></div>
-      <div class="metric"><div class="k">Total Quantity</div><div class="v" id="sumQty">0</div></div>
-    </div>
-  </div>
 
-  <div class="footer">Sales Price Calculator • Data remains in your browser until you press “Save to Google Sheet”.</div>
+    <div class="card">
+      <div class="card-title">Apply Discount to All Items</div>
+      <div class="bulk"><div class="field"><label>Discount Type</label><select id="bulkDiscountType"><option value="percent">Percent %</option><option value="amount">Amount USD / unit</option></select></div><div class="field"><label>Discount Value</label><input id="bulkDiscountValue" type="number" min="0" step="0.01" value="0"></div><button onclick="applyBulkDiscount()">Apply to All</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Calculation Summary</div>
+      <div class="summary-grid">
+        <div class="metric"><div class="k">Total Item Cost</div><div class="v" id="sumCost">$0.00</div></div><div class="metric"><div class="k">Total Freight</div><div class="v" id="sumFreight">$0.00</div></div><div class="metric"><div class="k">Total Landed Cost</div><div class="v" id="sumLanded">$0.00</div></div><div class="metric"><div class="k">Sales Before Discount</div><div class="v" id="sumBefore">$0.00</div></div><div class="metric"><div class="k">Actual / Final Sales</div><div class="v" id="sumSales">$0.00</div></div><div class="metric"><div class="k">Gross Profit</div><div class="v" id="sumProfit">$0.00</div></div>
+      </div>
+      <div style="margin-top:12px" class="summary-grid"><div class="metric"><div class="k">Overall Margin</div><div class="v" id="sumMargin">0.00%</div></div><div class="metric"><div class="k">Overall Markup</div><div class="v" id="sumMarkup">0.00%</div></div><div class="metric"><div class="k">Total Quantity</div><div class="v" id="sumQty">0</div></div></div>
+    </div>
+  </section>
+
+  <section id="tab-saved" class="tab-panel">
+    <div class="card">
+      <div class="card-title"><span>Saved Items</span><span class="muted" id="savedCount">0 items</span></div>
+      <div class="toolbar">
+        <input id="savedSearch" class="search" placeholder="Search calculation, product, code or brand..." oninput="renderSavedItems()">
+        <button onclick="loadSavedItems()">Refresh</button>
+        <button id="deleteSavedBtn" class="danger-fill" disabled onclick="deleteSelectedSavedItems()">Delete Selected (<span id="savedSelectedCount">0</span>)</button>
+      </div>
+      <div class="hint" style="margin:10px 0 12px">Select one or many rows with the checkboxes. Deleting removes those rows from Google Sheets and moves their saved photos to Drive trash.</div>
+      <div class="table-wrap">
+        <table class="history-table">
+          <thead><tr><th><input id="selectAllSaved" type="checkbox" onchange="toggleAllSaved(this.checked)"></th><th>Date</th><th>Calculation ID</th><th>Code / Product</th><th>Brand</th><th>Size / Description</th><th>Qty</th><th>Calculated</th><th>Final</th><th>Actual</th><th>Sales Used</th><th>Profit</th><th>Margin</th></tr></thead>
+          <tbody id="savedBody"><tr><td colspan="13" class="empty">Open this tab to load saved items.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-templates" class="tab-panel">
+    <div class="card">
+      <div class="card-title"><span>Brand Formula Template</span><span id="templateEditBadge" class="badge">New Template</span></div>
+      <input id="templateId" type="hidden">
+      <div class="grid template-form">
+        <div><label>Brand Name</label><input id="templateBrand" placeholder="e.g. Artearredo"></div>
+        <div><label>Formula</label><select id="templateFormula"><option value="multiplier">Multiplier ×</option><option value="markup">Markup %</option><option value="margin">Target Margin %</option><option value="manual">Manual Price</option></select></div>
+        <div><label>Formula Value</label><input id="templateFormulaValue" type="number" min="0" step="0.01" value="2.5"></div>
+        <div><label>Default Discount</label><select id="templateDiscountType"><option value="percent">Percent %</option><option value="amount">USD / unit</option></select></div>
+        <div><label>Discount Value</label><input id="templateDiscountValue" type="number" min="0" step="0.01" value="0"></div>
+        <div><label>Notes</label><input id="templateNotes" placeholder="Optional notes"></div>
+      </div>
+      <div class="toolbar" style="margin-top:14px"><button class="primary" id="saveTemplateBtn" onclick="saveBrandTemplate()">Save Template</button><button onclick="clearTemplateForm()">Clear</button></div>
+      <div class="hint" style="margin-top:10px">For example: Brand A → Multiplier × 2.5. When Brand A is selected in Calculator, that formula is applied automatically. You can still change the formula manually afterward.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span>Stored Brand Templates</span><span class="muted" id="templateCount">0 templates</span></div>
+      <div class="toolbar" style="margin-bottom:12px"><button onclick="loadBrandTemplates()">Refresh</button><button id="deleteTemplateBtn" class="danger" disabled onclick="deleteSelectedTemplates()">Delete Selected (<span id="templateSelectedCount">0</span>)</button></div>
+      <div class="table-wrap"><table class="template-table"><thead><tr><th><input id="selectAllTemplates" type="checkbox" onchange="toggleAllTemplates(this.checked)"></th><th>Brand</th><th>Formula</th><th>Value</th><th>Default Discount</th><th>Notes</th><th>Updated</th><th></th></tr></thead><tbody id="templateBody"><tr><td colspan="8" class="empty">No templates loaded yet.</td></tr></tbody></table></div>
+    </div>
+  </section>
+
+  <div class="footer">Sales Price Calculator • Saved data is stored in your connected Google Sheet.</div>
 </div>
-
 <div id="toast" class="toast"></div>
 
 <script>
-  let items = [];
-  let nextId = 1;
+  const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzr3v6Drnac_jy3_KFIA8N2xxFQn_TB1DCJ5EHa61xYoMWAXn2-DcJI1tiRm6QkG_Xz/exec';
+  let items=[]; let nextId=1;
+  let savedItems=[]; let savedLoaded=false; const savedSelected=new Set();
+  let brandTemplates=[]; let templatesLoaded=false; const templateSelected=new Set();
 
-  const $ = id => document.getElementById(id);
-  const money = n => '$' + (Number(n || 0)).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-  const pct = n => (Number(n || 0)).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) + '%';
-  const num = v => {
-    const n = Number(v);
-    return Number.isFinite(n) ? n : 0;
-  };
+  const $=id=>document.getElementById(id);
+  const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0};
+  const money=n=>'$'+Number(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  const pct=n=>Number(n||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
+  const escapeHtml=str=>String(str??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[m]);
+  const uid=()=> 'CAL-'+new Date().toISOString().replace(/\D/g,'').slice(0,14)+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
 
-  function uid(){
-    return 'CAL-' + new Date().toISOString().replace(/\D/g,'').slice(0,14) + '-' + Math.random().toString(36).slice(2,6).toUpperCase();
+  function showToast(message,isError=false){const t=$('toast');t.textContent=message;t.className='toast show'+(isError?' error':'');setTimeout(()=>t.className='toast',4000)}
+  function formatDate(value){if(!value)return '';const d=new Date(value);return Number.isNaN(d.getTime())?String(value):d.toLocaleString()}
+  function formulaLabel(value){return ({multiplier:'Multiplier ×',markup:'Markup %',margin:'Target Margin %',manual:'Manual Price'})[value]||value||''}
+
+  function showTab(name){
+    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(x=>x.classList.toggle('active',x.dataset.tab===name));
+    $('tab-'+name).classList.add('active');
+    if(name==='saved'&&!savedLoaded) loadSavedItems();
+    if(name==='templates'&&!templatesLoaded) loadBrandTemplates();
   }
 
-  function showToast(message, isError=false){
-    const t = $('toast');
-    t.textContent = message;
-    t.className = 'toast show' + (isError ? ' error' : '');
-    setTimeout(()=>t.className='toast', 3500);
+  function ensureApiUrl(){$('apiUrl').value=GOOGLE_SHEETS_API_URL;return GOOGLE_SHEETS_API_URL}
+  async function apiPost(payload){
+    const r=await fetch(ensureApiUrl(),{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+    const text=await r.text(); let data;
+    try{data=JSON.parse(text)}catch(e){throw new Error('Backend returned an invalid response. Redeploy the Apps Script web app.')}
+    if(!data.ok) throw new Error(data.error||'Request failed');
+    return data;
   }
 
-  function saveSettings(){
-    localStorage.setItem('spc_settings', JSON.stringify({
-      apiUrl:$('apiUrl').value.trim(),
-      cnyRate:$('cnyRate').value,
-      eurRate:$('eurRate').value,
-      minMargin:$('minMargin').value
-    }));
-  }
-
-  function loadSettings(){
-    try{
-      const s = JSON.parse(localStorage.getItem('spc_settings') || '{}');
-      if(s.apiUrl) $('apiUrl').value=s.apiUrl;
-      if(s.cnyRate) $('cnyRate').value=s.cnyRate;
-      if(s.eurRate) $('eurRate').value=s.eurRate;
-      if(s.minMargin !== undefined) $('minMargin').value=s.minMargin;
-    }catch(e){}
-  }
-
-  $('apiUrl').addEventListener('change', saveSettings);
+  function saveSettings(){localStorage.setItem('spc_settings',JSON.stringify({cnyRate:$('cnyRate').value,eurRate:$('eurRate').value,minMargin:$('minMargin').value}))}
+  function loadSettings(){try{const s=JSON.parse(localStorage.getItem('spc_settings')||'{}');if(s.cnyRate)$('cnyRate').value=s.cnyRate;if(s.eurRate)$('eurRate').value=s.eurRate;if(s.minMargin!==undefined)$('minMargin').value=s.minMargin}catch(e){}ensureApiUrl()}
 
   function addItem(seed={}){
-    const id = nextId++;
-    items.push({
-      id,
-      photoData:'',
-      photoName:'',
-      code:seed.code||'',
-      name:seed.name||'',
-      brand:seed.brand||'',
-      sizeDescription:seed.sizeDescription||'',
-      qty:seed.qty||1,
-      supplierCost:seed.supplierCost||0,
-      currency:seed.currency||'CNY',
-      manualFreight:seed.manualFreight||0,
-      formula:seed.formula||'multiplier',
-      formulaValue:seed.formulaValue ?? 2.5,
-      manualPrice:seed.manualPrice||0,
-      discountType:seed.discountType||'percent',
-      discountValue:seed.discountValue||0,
-      actualPrice:seed.actualPrice ?? '',
-      calc:{}
-    });
+    const id=nextId++;
+    items.push({id,photoData:'',photoName:'',code:seed.code||'',name:seed.name||'',brand:seed.brand||'',sizeDescription:seed.sizeDescription||'',qty:seed.qty||1,supplierCost:seed.supplierCost||0,currency:seed.currency||'CNY',manualFreight:seed.manualFreight||0,formula:seed.formula||'multiplier',formulaValue:seed.formulaValue??2.5,manualPrice:seed.manualPrice||0,discountType:seed.discountType||'percent',discountValue:seed.discountValue||0,actualPrice:seed.actualPrice??'',calc:{}});
     render();
   }
+  function removeItem(id){items=items.filter(x=>x.id!==id);render()}
+  function updateItem(id,field,value){const item=items.find(x=>x.id===id);if(!item)return;if(field==='actualPrice')item[field]=value===''?'':num(value);else if(['qty','supplierCost','manualFreight','formulaValue','manualPrice','discountValue'].includes(field))item[field]=num(value);else item[field]=value;if(field==='formula'){render();return}calculateAll()}
 
-  function removeItem(id){
-    items = items.filter(x=>x.id!==id);
-    render();
+  function applyBrandTemplateIfMatch(id,brand){
+    const item=items.find(x=>x.id===id);if(!item)return;
+    const template=brandTemplates.find(t=>String(t.brand||'').trim().toLowerCase()===String(brand||'').trim().toLowerCase());
+    if(!template)return;
+    item.brand=template.brand;
+    item.formula=template.formula||'multiplier';
+    if(item.formula==='manual') item.manualPrice=num(template.formulaValue); else item.formulaValue=num(template.formulaValue);
+    item.discountType=template.discountType||'percent'; item.discountValue=num(template.discountValue);
+    render(); showToast('Applied '+template.brand+' pricing template.');
   }
 
-  function updateItem(id, field, value){
-    const item = items.find(x=>x.id===id);
-    if(!item) return;
-    if(field === 'actualPrice') item[field] = value === '' ? '' : num(value);
-    else if(['qty','supplierCost','manualFreight','formulaValue','manualPrice','discountValue'].includes(field)) item[field]=num(value);
-    else item[field]=value;
-
-    // Formula type changes alter what the Formula Value field means,
-    // so rebuild the row immediately.
-    if(field === 'formula'){
-      render();
-      return;
-    }
-    calculateAll();
-  }
+  function renderBrandDatalist(){const dl=$('brandTemplateList');if(!dl)return;dl.innerHTML=brandTemplates.map(t=>`<option value="${escapeHtml(t.brand)}">${escapeHtml(formulaLabel(t.formula))} ${escapeHtml(t.formulaValue)}</option>`).join('')}
 
   function render(){
-    const body=$('itemsBody');
-    body.innerHTML='';
+    const body=$('itemsBody');body.innerHTML='';
     for(const item of items){
+      const match=brandTemplates.find(t=>String(t.brand||'').trim().toLowerCase()===String(item.brand||'').trim().toLowerCase());
       const tr=document.createElement('tr');
-      tr.innerHTML = `
-        <td>
-          <label class="photo-box" for="photo-${item.id}">
-            <img id="img-${item.id}" alt="">
-            <span id="photoText-${item.id}">Add<br>Photo</span>
-          </label>
-          <input id="photo-${item.id}" type="file" accept="image/*" style="display:none" onchange="handlePhoto(${item.id},this)">
-        </td>
-        <td>
-          <input placeholder="Item code" value="${escapeHtml(item.code)}" oninput="updateItem(${item.id},'code',this.value)">
-          <input style="margin-top:6px" placeholder="Product name" value="${escapeHtml(item.name)}" oninput="updateItem(${item.id},'name',this.value)">
-        </td>
-        <td><input placeholder="Brand" value="${escapeHtml(item.brand)}" oninput="updateItem(${item.id},'brand',this.value)"></td>
+      tr.innerHTML=`
+        <td><label class="photo-box" for="photo-${item.id}"><img id="img-${item.id}" alt=""><span id="photoText-${item.id}">Add<br>Photo</span></label><input id="photo-${item.id}" type="file" accept="image/*" style="display:none" onchange="handlePhoto(${item.id},this)"></td>
+        <td><input placeholder="Item code" value="${escapeHtml(item.code)}" oninput="updateItem(${item.id},'code',this.value)"><input style="margin-top:6px" placeholder="Product name" value="${escapeHtml(item.name)}" oninput="updateItem(${item.id},'name',this.value)"></td>
+        <td><input list="brandTemplateList" placeholder="Select or type brand" value="${escapeHtml(item.brand)}" oninput="updateItem(${item.id},'brand',this.value)" onchange="applyBrandTemplateIfMatch(${item.id},this.value)"><div class="hint" id="brandHint-${item.id}">${match?'Template: '+escapeHtml(formulaLabel(match.formula))+' '+escapeHtml(match.formulaValue):'Type any brand or select template'}</div></td>
         <td><input placeholder="Size / description" value="${escapeHtml(item.sizeDescription)}" oninput="updateItem(${item.id},'sizeDescription',this.value)"></td>
         <td><input type="number" min="0.01" step="1" value="${item.qty}" oninput="updateItem(${item.id},'qty',this.value)"></td>
         <td><input type="number" min="0" step="0.01" value="${item.supplierCost}" oninput="updateItem(${item.id},'supplierCost',this.value)"></td>
-        <td>
-          <select onchange="updateItem(${item.id},'currency',this.value)">
-            <option value="CNY" ${item.currency==='CNY'?'selected':''}>CNY ¥</option>
-            <option value="EUR" ${item.currency==='EUR'?'selected':''}>EUR €</option>
-            <option value="USD" ${item.currency==='USD'?'selected':''}>USD $</option>
-          </select>
-        </td>
+        <td><select onchange="updateItem(${item.id},'currency',this.value)"><option value="CNY" ${item.currency==='CNY'?'selected':''}>CNY ¥</option><option value="EUR" ${item.currency==='EUR'?'selected':''}>EUR €</option><option value="USD" ${item.currency==='USD'?'selected':''}>USD $</option></select></td>
         <td class="money" id="unitCost-${item.id}">$0.00</td>
-        <td>
-          <input id="manualFreight-${item.id}" type="number" min="0" step="0.01" value="${item.manualFreight}" oninput="updateItem(${item.id},'manualFreight',this.value)">
-          <div class="hint" id="freightHint-${item.id}">Allocated: $0.00</div>
-        </td>
+        <td><input id="manualFreight-${item.id}" type="number" min="0" step="0.01" value="${item.manualFreight}" oninput="updateItem(${item.id},'manualFreight',this.value)"><div class="hint" id="freightHint-${item.id}">Allocated: $0.00</div></td>
         <td class="money" id="landed-${item.id}">$0.00</td>
-        <td>
-          <select onchange="updateItem(${item.id},'formula',this.value)">
-            <option value="multiplier" ${item.formula==='multiplier'?'selected':''}>Multiplier ×</option>
-            <option value="markup" ${item.formula==='markup'?'selected':''}>Markup %</option>
-            <option value="margin" ${item.formula==='margin'?'selected':''}>Target Margin %</option>
-            <option value="manual" ${item.formula==='manual'?'selected':''}>Manual Price</option>
-          </select>
-        </td>
-        <td>
-          <input id="formulaValue-${item.id}" type="number" min="0" step="0.01" value="${item.formula==='manual'?item.manualPrice:item.formulaValue}"
-                 oninput="${item.formula==='manual' ? `updateItem(${item.id},'manualPrice',this.value)` : `updateItem(${item.id},'formulaValue',this.value)`}">
-        </td>
+        <td><select onchange="updateItem(${item.id},'formula',this.value)"><option value="multiplier" ${item.formula==='multiplier'?'selected':''}>Multiplier ×</option><option value="markup" ${item.formula==='markup'?'selected':''}>Markup %</option><option value="margin" ${item.formula==='margin'?'selected':''}>Target Margin %</option><option value="manual" ${item.formula==='manual'?'selected':''}>Manual Price</option></select></td>
+        <td><input id="formulaValue-${item.id}" type="number" min="0" step="0.01" value="${item.formula==='manual'?item.manualPrice:item.formulaValue}" oninput="${item.formula==='manual'?`updateItem(${item.id},'manualPrice',this.value)`:`updateItem(${item.id},'formulaValue',this.value)`}"></td>
         <td class="money" id="sale-${item.id}">$0.00</td>
-        <td>
-          <select onchange="updateItem(${item.id},'discountType',this.value)">
-            <option value="percent" ${item.discountType==='percent'?'selected':''}>Percent %</option>
-            <option value="amount" ${item.discountType==='amount'?'selected':''}>USD / unit</option>
-          </select>
-        </td>
+        <td><select onchange="updateItem(${item.id},'discountType',this.value)"><option value="percent" ${item.discountType==='percent'?'selected':''}>Percent %</option><option value="amount" ${item.discountType==='amount'?'selected':''}>USD / unit</option></select></td>
         <td><input type="number" min="0" step="0.01" value="${item.discountValue}" oninput="updateItem(${item.id},'discountValue',this.value)"></td>
         <td class="money" id="final-${item.id}">$0.00</td>
-        <td>
-          <input type="number" min="0" step="0.01" placeholder="Use final price"
-                 value="${item.actualPrice === '' ? '' : item.actualPrice}"
-                 oninput="updateItem(${item.id},'actualPrice',this.value)">
-        </td>
-        <td class="money" id="profit-${item.id}">$0.00</td>
-        <td class="money" id="margin-${item.id}">0.00%</td>
-        <td class="money" id="markup-${item.id}">0.00%</td>
-        <td><button class="small danger" onclick="removeItem(${item.id})">Remove</button></td>
-      `;
+        <td><input type="number" min="0" step="0.01" placeholder="Use final price" value="${item.actualPrice===''?'':item.actualPrice}" oninput="updateItem(${item.id},'actualPrice',this.value)"></td>
+        <td class="money" id="profit-${item.id}">$0.00</td><td class="money" id="margin-${item.id}">0.00%</td><td class="money" id="markup-${item.id}">0.00%</td><td><button class="small danger" onclick="removeItem(${item.id})">Remove</button></td>`;
       body.appendChild(tr);
-
-      if(item.photoData){
-        setTimeout(()=>{
-          const img=$('img-'+item.id), tx=$('photoText-'+item.id);
-          if(img){img.src=item.photoData;img.style.display='block'}
-          if(tx)tx.style.display='none';
-        },0);
-      }
+      if(item.photoData){setTimeout(()=>{const img=$('img-'+item.id),tx=$('photoText-'+item.id);if(img){img.src=item.photoData;img.style.display='block'}if(tx)tx.style.display='none'},0)}
     }
-    $('itemCount').textContent = items.length + (items.length===1?' item':' items');
-    calculateAll();
+    $('itemCount').textContent=items.length+(items.length===1?' item':' items');calculateAll();
   }
 
-  function escapeHtml(str){
-    return String(str ?? '').replace(/[&<>"']/g, m => ({
-      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
-    })[m]);
-  }
-
-  function convertUnitCost(item){
-    const cost=num(item.supplierCost);
-    if(item.currency==='CNY'){
-      const r=num($('cnyRate').value);
-      return r>0 ? cost/r : 0;
-    }
-    if(item.currency==='EUR'){
-      return cost*num($('eurRate').value);
-    }
-    return cost;
-  }
-
-  function allocateFreight(){
-    const method=$('freightMethod').value;
-    const shared=Math.max(0,num($('sharedFreight').value));
-    const alloc={};
-    items.forEach(i=>alloc[i.id]=0);
-
-    if(method==='none') return alloc;
-    if(method==='manual'){
-      items.forEach(i=>alloc[i.id]=Math.max(0,num(i.manualFreight)));
-      return alloc;
-    }
-
-    if(method==='quantity'){
-      const totalQty=items.reduce((s,i)=>s+Math.max(0,num(i.qty)),0);
-      items.forEach(i=>{
-        alloc[i.id]=totalQty>0 ? shared*(Math.max(0,num(i.qty))/totalQty) : 0;
-      });
-      return alloc;
-    }
-
-    const values=items.map(i=>Math.max(0,convertUnitCost(i)*Math.max(0,num(i.qty))));
-    const totalValue=values.reduce((a,b)=>a+b,0);
-    items.forEach((i,idx)=>{
-      alloc[i.id]=totalValue>0 ? shared*(values[idx]/totalValue) : 0;
-    });
-    return alloc;
-  }
+  function convertUnitCost(item){const cost=num(item.supplierCost);if(item.currency==='CNY'){const r=num($('cnyRate').value);return r>0?cost/r:0}if(item.currency==='EUR')return cost*num($('eurRate').value);return cost}
+  function allocateFreight(){const method=$('freightMethod').value,shared=Math.max(0,num($('sharedFreight').value)),alloc={};items.forEach(i=>alloc[i.id]=0);if(method==='none')return alloc;if(method==='manual'){items.forEach(i=>alloc[i.id]=Math.max(0,num(i.manualFreight)));return alloc}if(method==='quantity'){const totalQty=items.reduce((s,i)=>s+Math.max(0,num(i.qty)),0);items.forEach(i=>alloc[i.id]=totalQty>0?shared*(Math.max(0,num(i.qty))/totalQty):0);return alloc}const values=items.map(i=>Math.max(0,convertUnitCost(i)*Math.max(0,num(i.qty)))),totalValue=values.reduce((a,b)=>a+b,0);items.forEach((i,idx)=>alloc[i.id]=totalValue>0?shared*(values[idx]/totalValue):0);return alloc}
 
   function calculateAll(){
-    if(!items.length){
-      updateSummary({cost:0,freight:0,landed:0,before:0,sales:0,profit:0,qty:0});
-      return;
-    }
-    const alloc=allocateFreight();
-    const minMargin=num($('minMargin').value);
-
-    const sum={cost:0,freight:0,landed:0,before:0,sales:0,profit:0,qty:0};
-
+    if(!items.length){updateSummary({cost:0,freight:0,landed:0,before:0,sales:0,profit:0,qty:0});return}
+    const alloc=allocateFreight(),minMargin=num($('minMargin').value),sum={cost:0,freight:0,landed:0,before:0,sales:0,profit:0,qty:0};
     for(const item of items){
-      const qty=Math.max(0,num(item.qty));
-      const unitCost=convertUnitCost(item);
-      const totalCost=unitCost*qty;
-      const freight=Math.max(0,num(alloc[item.id]));
-      const landedTotal=totalCost+freight;
-      const landedUnit=qty>0?landedTotal/qty:0;
-
-      let saleUnit=0;
-      if(item.formula==='multiplier') saleUnit=landedUnit*Math.max(0,num(item.formulaValue));
-      if(item.formula==='markup') saleUnit=landedUnit*(1+Math.max(0,num(item.formulaValue))/100);
-      if(item.formula==='margin'){
-        const target=Math.max(0,num(item.formulaValue))/100;
-        saleUnit=target>=1?0:landedUnit/(1-target);
-      }
-      if(item.formula==='manual') saleUnit=Math.max(0,num(item.manualPrice));
-
-      let discUnit=0;
-      if(item.discountType==='percent') discUnit=saleUnit*(Math.max(0,num(item.discountValue))/100);
-      else discUnit=Math.max(0,num(item.discountValue));
-      discUnit=Math.min(discUnit,saleUnit);
-
-      const finalUnit=Math.max(0,saleUnit-discUnit);
-      const beforeTotal=saleUnit*qty;
-      const finalSuggestedTotal=finalUnit*qty;
-
-      const hasActualPrice = item.actualPrice !== '' && item.actualPrice !== null && item.actualPrice !== undefined;
-      const actualUnit = hasActualPrice ? Math.max(0,num(item.actualPrice)) : null;
-      const priceUsedUnit = hasActualPrice ? actualUnit : finalUnit;
-      const salesUsedTotal = priceUsedUnit*qty;
-
-      const profit=salesUsedTotal-landedTotal;
-      const margin=salesUsedTotal>0?(profit/salesUsedTotal)*100:0;
-      const markup=landedTotal>0?(profit/landedTotal)*100:0;
-
-      item.calc={
-        unitCost,totalCost,freight,landedTotal,landedUnit,saleUnit,discUnit,
-        finalUnit,finalSuggestedTotal,actualUnit,priceUsedUnit,
-        beforeTotal,finalTotal:salesUsedTotal,profit,margin,markup
-      };
-
-      setText('unitCost-'+item.id,money(unitCost));
-      setText('freightHint-'+item.id,'Allocated: '+money(freight));
-      setText('landed-'+item.id,money(landedUnit));
-      setText('sale-'+item.id,money(saleUnit));
-      setText('final-'+item.id,money(finalUnit));
-      setText('profit-'+item.id,money(profit));
-
-      const marginEl=$('margin-'+item.id);
-      if(marginEl){
-        marginEl.textContent=pct(margin);
-        marginEl.className='money ' + (margin<minMargin?'metric-bad':margin<minMargin+10?'metric-warn':'metric-good');
-      }
-      setText('markup-'+item.id,pct(markup));
-
-      const manualInput=$('manualFreight-'+item.id);
-      if(manualInput) manualInput.disabled=$('freightMethod').value!=='manual';
-
-      sum.cost+=totalCost;
-      sum.freight+=freight;
-      sum.landed+=landedTotal;
-      sum.before+=beforeTotal;
-      sum.sales+=finalTotal;
-      sum.profit+=profit;
-      sum.qty+=qty;
+      const qty=Math.max(0,num(item.qty)),unitCost=convertUnitCost(item),totalCost=unitCost*qty,freight=Math.max(0,num(alloc[item.id])),landedTotal=totalCost+freight,landedUnit=qty>0?landedTotal/qty:0;
+      let saleUnit=0;if(item.formula==='multiplier')saleUnit=landedUnit*Math.max(0,num(item.formulaValue));if(item.formula==='markup')saleUnit=landedUnit*(1+Math.max(0,num(item.formulaValue))/100);if(item.formula==='margin'){const target=Math.max(0,num(item.formulaValue))/100;saleUnit=target>=1?0:landedUnit/(1-target)}if(item.formula==='manual')saleUnit=Math.max(0,num(item.manualPrice));
+      let discUnit=item.discountType==='percent'?saleUnit*(Math.max(0,num(item.discountValue))/100):Math.max(0,num(item.discountValue));discUnit=Math.min(discUnit,saleUnit);
+      const finalUnit=Math.max(0,saleUnit-discUnit),beforeTotal=saleUnit*qty,finalSuggestedTotal=finalUnit*qty,hasActual=item.actualPrice!==''&&item.actualPrice!==null&&item.actualPrice!==undefined,actualUnit=hasActual?Math.max(0,num(item.actualPrice)):null,priceUsedUnit=hasActual?actualUnit:finalUnit,salesUsedTotal=priceUsedUnit*qty,profit=salesUsedTotal-landedTotal,margin=salesUsedTotal>0?(profit/salesUsedTotal)*100:0,markup=landedTotal>0?(profit/landedTotal)*100:0;
+      item.calc={unitCost,totalCost,freight,landedTotal,landedUnit,saleUnit,discUnit,finalUnit,finalSuggestedTotal,actualUnit,priceUsedUnit,beforeTotal,finalTotal:salesUsedTotal,profit,margin,markup};
+      setText('unitCost-'+item.id,money(unitCost));setText('freightHint-'+item.id,'Allocated: '+money(freight));setText('landed-'+item.id,money(landedUnit));setText('sale-'+item.id,money(saleUnit));setText('final-'+item.id,money(finalUnit));setText('profit-'+item.id,money(profit));
+      const marginEl=$('margin-'+item.id);if(marginEl){marginEl.textContent=pct(margin);marginEl.className='money '+(margin<minMargin?'metric-bad':margin<minMargin+10?'metric-warn':'metric-good')}setText('markup-'+item.id,pct(markup));const manualInput=$('manualFreight-'+item.id);if(manualInput)manualInput.disabled=$('freightMethod').value!=='manual';
+      sum.cost+=totalCost;sum.freight+=freight;sum.landed+=landedTotal;sum.before+=beforeTotal;sum.sales+=salesUsedTotal;sum.profit+=profit;sum.qty+=qty;
     }
     updateSummary(sum);
   }
+  function setText(id,txt){const el=$(id);if(el)el.textContent=txt}
+  function updateSummary(s){setText('sumCost',money(s.cost));setText('sumFreight',money(s.freight));setText('sumLanded',money(s.landed));setText('sumBefore',money(s.before));setText('sumSales',money(s.sales));setText('sumProfit',money(s.profit));setText('sumQty',Number(s.qty||0).toLocaleString());const margin=s.sales>0?(s.profit/s.sales)*100:0,markup=s.landed>0?(s.profit/s.landed)*100:0;setText('sumMargin',pct(margin));setText('sumMarkup',pct(markup));const minMargin=num($('minMargin').value),m=$('sumMargin');if(m)m.className='v '+(margin<minMargin?'metric-bad':margin<minMargin+10?'metric-warn':'metric-good');const p=$('sumProfit');if(p)p.className='v '+(s.profit>=0?'metric-good':'metric-bad')}
 
-  function setText(id,txt){
-    const el=$(id); if(el) el.textContent=txt;
-  }
-
-  function updateSummary(s){
-    setText('sumCost',money(s.cost));
-    setText('sumFreight',money(s.freight));
-    setText('sumLanded',money(s.landed));
-    setText('sumBefore',money(s.before));
-    setText('sumSales',money(s.sales));
-    setText('sumProfit',money(s.profit));
-    setText('sumQty',Number(s.qty||0).toLocaleString());
-
-    const margin=s.sales>0?(s.profit/s.sales)*100:0;
-    const markup=s.landed>0?(s.profit/s.landed)*100:0;
-    setText('sumMargin',pct(margin));
-    setText('sumMarkup',pct(markup));
-
-    const minMargin=num($('minMargin').value);
-    const m=$('sumMargin');
-    if(m)m.className='v '+(margin<minMargin?'metric-bad':margin<minMargin+10?'metric-warn':'metric-good');
-    const p=$('sumProfit');
-    if(p)p.className='v '+(s.profit>=0?'metric-good':'metric-bad');
-  }
-
-  async function handlePhoto(id,input){
-    const file=input.files && input.files[0];
-    if(!file)return;
-    try{
-      const data=await compressImage(file,1200,0.82);
-      const item=items.find(x=>x.id===id);
-      if(!item)return;
-      item.photoData=data;
-      item.photoName=file.name;
-      const img=$('img-'+id), tx=$('photoText-'+id);
-      img.src=data;img.style.display='block';tx.style.display='none';
-    }catch(e){
-      showToast('Could not read this image.',true);
-    }
-  }
-
-  function compressImage(file,maxSize=1200,quality=.82){
-    return new Promise((resolve,reject)=>{
-      const reader=new FileReader();
-      reader.onerror=reject;
-      reader.onload=()=>{
-        const img=new Image();
-        img.onerror=reject;
-        img.onload=()=>{
-          let w=img.width,h=img.height;
-          const scale=Math.min(1,maxSize/Math.max(w,h));
-          w=Math.round(w*scale);h=Math.round(h*scale);
-          const canvas=document.createElement('canvas');
-          canvas.width=w;canvas.height=h;
-          const ctx=canvas.getContext('2d');
-          ctx.drawImage(img,0,0,w,h);
-          resolve(canvas.toDataURL('image/jpeg',quality));
-        };
-        img.src=reader.result;
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  function applyBulkDiscount(){
-    const type=$('bulkDiscountType').value;
-    const value=Math.max(0,num($('bulkDiscountValue').value));
-    items.forEach(i=>{i.discountType=type;i.discountValue=value});
-    render();
-  }
-
-  function newCalculation(){
-    items=[];nextId=1;
-    $('sharedFreight').value=0;
-    $('freightMethod').value='value';
-    addItem();
-    showToast('New calculation started.');
-  }
-
-  function ensureApiUrl(){
-    let url = $('apiUrl').value.trim();
-    if(url) return url;
-
-    try{
-      const saved = JSON.parse(localStorage.getItem('spc_settings') || '{}');
-      if(saved.apiUrl){
-        $('apiUrl').value = saved.apiUrl;
-        return saved.apiUrl;
-      }
-    }catch(e){}
-
-    url = window.prompt(
-      'One-time setup: paste the Google Apps Script Web App URL. It will be saved in this browser and will not appear on the calculator screen.'
-    ) || '';
-
-    url = url.trim();
-    if(url){
-      $('apiUrl').value = url;
-      saveSettings();
-    }
-    return url;
-  }
-
-  async function testConnection(){
-    const url=ensureApiUrl();
-    if(!url){showToast('Google saving is not configured yet.',true);return}
-    saveSettings();
-    try{
-      const r=await fetch(url+'?action=ping&t='+Date.now(),{method:'GET'});
-      const data=await r.json();
-      if(data.ok){
-        showToast('Google connection successful.');
-      }else throw new Error(data.error||'Connection failed');
-    }catch(e){
-      showToast('Connection failed. Check the Web App URL and deployment access.',true);
-    }
-  }
+  async function handlePhoto(id,input){const file=input.files&&input.files[0];if(!file)return;try{const data=await compressImage(file,1200,.82),item=items.find(x=>x.id===id);if(!item)return;item.photoData=data;item.photoName=file.name;const img=$('img-'+id),tx=$('photoText-'+id);img.src=data;img.style.display='block';tx.style.display='none'}catch(e){showToast('Could not read this image.',true)}}
+  function compressImage(file,maxSize=1200,quality=.82){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{let w=img.width,h=img.height;const scale=Math.min(1,maxSize/Math.max(w,h));w=Math.round(w*scale);h=Math.round(h*scale);const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);resolve(canvas.toDataURL('image/jpeg',quality))};img.src=reader.result};reader.readAsDataURL(file)})}
+  function applyBulkDiscount(){const type=$('bulkDiscountType').value,value=Math.max(0,num($('bulkDiscountValue').value));items.forEach(i=>{i.discountType=type;i.discountValue=value});render()}
+  function newCalculation(){items=[];nextId=1;$('sharedFreight').value=0;$('freightMethod').value='value';addItem();showToast('New calculation started.')}
 
   async function saveCalculation(){
-    calculateAll();
-    const url=ensureApiUrl();
-    if(!url){showToast('Google saving is not configured yet.',true);return}
-    if(!items.length){showToast('Add at least one item.',true);return}
-
-    const calculationId=uid();
-    const payload={
-      action:'saveCalculation',
-      calculationId,
-      cnyRate:num($('cnyRate').value),
-      eurRate:num($('eurRate').value),
-      minimumMargin:num($('minMargin').value),
-      sharedFreight:num($('sharedFreight').value),
-      freightMethod:$('freightMethod').value,
-      items:items.map(i=>({
-        code:i.code,
-        name:i.name,
-        brand:i.brand,
-        sizeDescription:i.sizeDescription,
-        qty:i.qty,
-        supplierCost:i.supplierCost,
-        currency:i.currency,
-        manualFreight:i.manualFreight,
-        formula:i.formula,
-        formulaValue:i.formula==='manual'?i.manualPrice:i.formulaValue,
-        discountType:i.discountType,
-        discountValue:i.discountValue,
-        actualPrice:i.actualPrice,
-        photoData:i.photoData,
-        photoName:i.photoName,
-        calc:i.calc
-      }))
-    };
-
-    const btn=$('saveBtn');
-    btn.disabled=true;
-    btn.textContent='Saving...';
-    saveSettings();
-
-    try{
-      const r=await fetch(url,{
-        method:'POST',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify(payload)
-      });
-      const data=await r.json();
-      if(!data.ok) throw new Error(data.error||'Save failed');
-      showToast(`Saved ${data.rowsSaved} item(s). Calculation ID: ${calculationId}`);
-    }catch(e){
-      console.error(e);
-      showToast('Save failed. Check Apps Script deployment and permissions.',true);
-    }finally{
-      btn.disabled=false;
-      btn.textContent='Save to Google Sheet';
-    }
+    calculateAll();if(!items.length){showToast('Add at least one item.',true);return}
+    const calculationId=uid(),payload={action:'saveCalculation',calculationId,cnyRate:num($('cnyRate').value),eurRate:num($('eurRate').value),minimumMargin:num($('minMargin').value),sharedFreight:num($('sharedFreight').value),freightMethod:$('freightMethod').value,items:items.map(i=>({code:i.code,name:i.name,brand:i.brand,sizeDescription:i.sizeDescription,qty:i.qty,supplierCost:i.supplierCost,currency:i.currency,manualFreight:i.manualFreight,formula:i.formula,formulaValue:i.formula==='manual'?i.manualPrice:i.formulaValue,discountType:i.discountType,discountValue:i.discountValue,actualPrice:i.actualPrice,photoData:i.photoData,photoName:i.photoName,calc:i.calc}))};
+    const btn=$('saveBtn');btn.disabled=true;btn.textContent='Saving...';saveSettings();
+    try{const data=await apiPost(payload);showToast(`Saved ${data.rowsSaved} item(s). Calculation ID: ${calculationId}`);savedLoaded=false}catch(e){console.error(e);showToast('Save failed: '+e.message,true)}finally{btn.disabled=false;btn.textContent='Save to Google Sheet'}
   }
 
-  loadSettings();
-  addItem();
-</script>
+  async function loadSavedItems(){
+    const body=$('savedBody');body.innerHTML='<tr><td colspan="13" class="empty">Loading saved items...</td></tr>';
+    try{const data=await apiPost({action:'listSavedItems',limit:1000});savedItems=Array.isArray(data.items)?data.items:[];savedLoaded=true;savedSelected.clear();renderSavedItems();showToast('Saved items refreshed.')}catch(e){savedItems=[];savedLoaded=false;body.innerHTML='<tr><td colspan="13" class="empty">Could not load saved items. Update and redeploy Code.gs first.</td></tr>';showToast('Saved items: '+e.message,true)}
+  }
+  function filteredSavedItems(){const q=String($('savedSearch').value||'').trim().toLowerCase();if(!q)return savedItems;return savedItems.filter(x=>[x.calculationId,x.code,x.name,x.brand,x.sizeDescription].some(v=>String(v||'').toLowerCase().includes(q)))}
+  function renderSavedItems(){
+    const body=$('savedBody'),rows=filteredSavedItems();$('savedCount').textContent=savedItems.length+(savedItems.length===1?' item':' items');
+    if(!rows.length){body.innerHTML='<tr><td colspan="13" class="empty">No saved items found.</td></tr>';updateSavedSelection();return}
+    body.innerHTML=rows.map(x=>`<tr class="${savedSelected.has(x.rowNumber)?'selected':''}"><td><input type="checkbox" ${savedSelected.has(x.rowNumber)?'checked':''} onchange="toggleSavedRow(${x.rowNumber},this.checked)"></td><td>${escapeHtml(formatDate(x.timestamp))}</td><td><span class="badge">${escapeHtml(x.calculationId)}</span></td><td><b>${escapeHtml(x.code||'')}</b><div class="hint">${escapeHtml(x.name||'')}</div></td><td>${escapeHtml(x.brand||'')}</td><td>${escapeHtml(x.sizeDescription||'')}</td><td>${escapeHtml(x.qty)}</td><td class="money">${money(x.calculatedPrice)}</td><td class="money">${money(x.finalSuggestedPrice)}</td><td class="money">${x.actualPrice===''||x.actualPrice===null?'—':money(x.actualPrice)}</td><td class="money">${money(x.priceUsed)}</td><td class="money ${num(x.profit)>=0?'metric-good':'metric-bad'}">${money(x.profit)}</td><td class="money">${pct(x.margin)}</td></tr>`).join('');updateSavedSelection();
+  }
+  function toggleSavedRow(row,checked){checked?savedSelected.add(row):savedSelected.delete(row);renderSavedItems()}
+  function toggleAllSaved(checked){filteredSavedItems().forEach(x=>checked?savedSelected.add(x.rowNumber):savedSelected.delete(x.rowNumber));renderSavedItems()}
+  function updateSavedSelection(){const n=savedSelected.size;setText('savedSelectedCount',n);$('deleteSavedBtn').disabled=n===0;const visible=filteredSavedItems();$('selectAllSaved').checked=visible.length>0&&visible.every(x=>savedSelected.has(x.rowNumber))}
+  async function deleteSelectedSavedItems(){
+    if(!savedSelected.size)return;const selected=savedItems.filter(x=>savedSelected.has(x.rowNumber));if(!confirm(`Delete ${selected.length} selected saved item(s) from Google Sheets? This cannot be undone.`))return;
+    const btn=$('deleteSavedBtn');btn.disabled=true;btn.textContent='Deleting...';
+    try{const targets=selected.map(x=>({rowNumber:x.rowNumber,calculationId:x.calculationId})),data=await apiPost({action:'deleteSavedItems',targets});showToast(`Deleted ${data.deleted} item(s).`);await loadSavedItems()}catch(e){showToast('Delete failed: '+e.message,true)}finally{btn.innerHTML='Delete Selected (<span id="savedSelectedCount">0</span>)';updateSavedSelection()}
+  }
 
+  async function loadBrandTemplates(silent=false){
+    try{const data=await apiPost({action:'listBrandTemplates'});brandTemplates=Array.isArray(data.templates)?data.templates:[];templatesLoaded=true;templateSelected.clear();renderBrandDatalist();renderTemplateTable();render();if(!silent)showToast('Brand templates refreshed.')}catch(e){templatesLoaded=false;if(!silent)showToast('Brand templates: '+e.message,true)}
+  }
+  function renderTemplateTable(){
+    const body=$('templateBody');$('templateCount').textContent=brandTemplates.length+(brandTemplates.length===1?' template':' templates');
+    if(!brandTemplates.length){body.innerHTML='<tr><td colspan="8" class="empty">No brand templates saved yet.</td></tr>';updateTemplateSelection();return}
+    body.innerHTML=brandTemplates.map(t=>`<tr class="${templateSelected.has(t.id)?'selected':''}"><td><input type="checkbox" ${templateSelected.has(t.id)?'checked':''} onchange="toggleTemplate('${escapeHtml(t.id)}',this.checked)"></td><td><b>${escapeHtml(t.brand)}</b></td><td>${escapeHtml(formulaLabel(t.formula))}</td><td>${escapeHtml(t.formulaValue)}</td><td>${escapeHtml(t.discountType==='amount'?'$'+num(t.discountValue).toFixed(2):num(t.discountValue).toFixed(2)+'%')}</td><td>${escapeHtml(t.notes||'')}</td><td>${escapeHtml(formatDate(t.updatedAt))}</td><td><button class="small" onclick="editTemplate('${escapeHtml(t.id)}')">Edit</button></td></tr>`).join('');updateTemplateSelection();
+  }
+  function toggleTemplate(id,checked){checked?templateSelected.add(id):templateSelected.delete(id);renderTemplateTable()}
+  function toggleAllTemplates(checked){brandTemplates.forEach(t=>checked?templateSelected.add(t.id):templateSelected.delete(t.id));renderTemplateTable()}
+  function updateTemplateSelection(){const n=templateSelected.size;setText('templateSelectedCount',n);$('deleteTemplateBtn').disabled=n===0;$('selectAllTemplates').checked=brandTemplates.length>0&&brandTemplates.every(t=>templateSelected.has(t.id))}
+  function clearTemplateForm(){$('templateId').value='';$('templateBrand').value='';$('templateFormula').value='multiplier';$('templateFormulaValue').value='2.5';$('templateDiscountType').value='percent';$('templateDiscountValue').value='0';$('templateNotes').value='';$('templateEditBadge').textContent='New Template';$('templateEditBadge').className='badge'}
+  function editTemplate(id){const t=brandTemplates.find(x=>x.id===id);if(!t)return;$('templateId').value=t.id;$('templateBrand').value=t.brand;$('templateFormula').value=t.formula;$('templateFormulaValue').value=t.formulaValue;$('templateDiscountType').value=t.discountType||'percent';$('templateDiscountValue').value=t.discountValue||0;$('templateNotes').value=t.notes||'';$('templateEditBadge').textContent='Editing '+t.brand;$('templateEditBadge').className='badge good';window.scrollTo({top:0,behavior:'smooth'})}
+  async function saveBrandTemplate(){
+    const brand=$('templateBrand').value.trim();if(!brand){showToast('Enter a brand name.',true);return}
+    const btn=$('saveTemplateBtn');btn.disabled=true;btn.textContent='Saving...';
+    try{await apiPost({action:'saveBrandTemplate',template:{id:$('templateId').value.trim(),brand,formula:$('templateFormula').value,formulaValue:num($('templateFormulaValue').value),discountType:$('templateDiscountType').value,discountValue:num($('templateDiscountValue').value),notes:$('templateNotes').value.trim()}});showToast('Brand template saved.');clearTemplateForm();await loadBrandTemplates(true)}catch(e){showToast('Template save failed: '+e.message,true)}finally{btn.disabled=false;btn.textContent='Save Template'}
+  }
+  async function deleteSelectedTemplates(){if(!templateSelected.size)return;if(!confirm(`Delete ${templateSelected.size} selected brand template(s)?`))return;try{const data=await apiPost({action:'deleteBrandTemplates',ids:Array.from(templateSelected)});showToast(`Deleted ${data.deleted} template(s).`);await loadBrandTemplates(true)}catch(e){showToast('Template delete failed: '+e.message,true)}}
+
+  loadSettings();addItem();loadBrandTemplates(true);
+</script>
 <script>
-  // Installable PWA support
-  let deferredInstallPrompt = null;
-
-  window.addEventListener('beforeinstallprompt', (event) => {
-    event.preventDefault();
-    deferredInstallPrompt = event;
-    const btn = document.getElementById('installBtn');
-    if (btn) btn.style.display = 'inline-block';
-  });
-
-  async function installApp(){
-    if (!deferredInstallPrompt) return;
-    deferredInstallPrompt.prompt();
-    await deferredInstallPrompt.userChoice;
-    deferredInstallPrompt = null;
-    const btn = document.getElementById('installBtn');
-    if (btn) btn.style.display = 'none';
-  }
-
-  window.addEventListener('appinstalled', () => {
-    const btn = document.getElementById('installBtn');
-    if (btn) btn.style.display = 'none';
-  });
-
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./service-worker.js').catch(console.error);
-    });
-  }
+  let deferredInstallPrompt=null;
+  window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstallPrompt=event;const btn=$('installBtn');if(btn)btn.style.display='inline-block'});
+  async function installApp(){if(!deferredInstallPrompt)return;deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;const btn=$('installBtn');if(btn)btn.style.display='none'}
+  window.addEventListener('appinstalled',()=>{const btn=$('installBtn');if(btn)btn.style.display='none'});
+  if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(console.error));
 </script>
-
 </body>
 </html>
