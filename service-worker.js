@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sales-price-calculator-v8';
+const CACHE_NAME = 'sales-price-calculator-v9';
 const APP_SHELL = [
   './',
   './index.html',
@@ -16,7 +16,9 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))))
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))
+    )
   );
   self.clients.claim();
 });
