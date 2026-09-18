@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sales-price-calculator-v4';
+const CACHE_NAME = 'sales-price-calculator-v5';
 const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzr3v6Drnac_jy3_KFIA8N2xxFQn_TB1DCJ5EHa61xYoMWAXn2-DcJI1tiRm6QkG_Xz/exec';
 
 const APP_SHELL = [
@@ -25,8 +25,13 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-function injectGoogleBackend(html) {
+function patchAppHtml(html) {
+  // Fix v2 calculation bug that stopped the Save button before the request was sent.
+  html = html.replace('sum.sales+=finalTotal;', 'sum.sales+=salesUsedTotal;');
+
+  // Always use the configured Google Apps Script backend without showing it in the UI.
   const script = `\n<script>\n(function(){\n  const url = '${GOOGLE_SHEETS_API_URL}';\n  window.ensureApiUrl = function(){\n    const el = document.getElementById('apiUrl');\n    if (el) el.value = url;\n    return url;\n  };\n  try {\n    const old = JSON.parse(localStorage.getItem('spc_settings') || '{}');\n    old.apiUrl = url;\n    localStorage.setItem('spc_settings', JSON.stringify(old));\n  } catch(e) {}\n  const el = document.getElementById('apiUrl');\n  if (el) el.value = url;\n})();\n<\/script>\n`;
+
   return html.replace('</body>', script + '</body>');
 }
 
@@ -49,8 +54,8 @@ self.addEventListener('fetch', event => {
         const headers = new Headers(network.headers);
         headers.delete('content-length');
         headers.set('content-type', 'text/html; charset=utf-8');
-        const injected = injectGoogleBackend(text);
-        const response = new Response(injected, {
+        const patched = patchAppHtml(text);
+        const response = new Response(patched, {
           status: network.status,
           statusText: network.statusText,
           headers
@@ -65,7 +70,7 @@ self.addEventListener('fetch', event => {
         const headers = new Headers(cached.headers);
         headers.delete('content-length');
         headers.set('content-type', 'text/html; charset=utf-8');
-        return new Response(injectGoogleBackend(text), { status: 200, headers });
+        return new Response(patchAppHtml(text), { status: 200, headers });
       }
     })());
     return;
