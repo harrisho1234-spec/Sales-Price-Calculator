@@ -1,18 +1,18 @@
 (() => {
-  const oldStyle = document.getElementById('ultra-compact-items-v14');
+  const oldStyle = document.getElementById('list-items-v15');
   if (oldStyle) oldStyle.remove();
 
   const style = document.createElement('style');
-  style.id = 'list-items-v15';
+  style.id = 'list-items-v16';
   style.textContent = `
     .item-list{display:block!important}
     .list-wrap{border:1px solid var(--line);border-radius:10px;overflow:auto;background:#fff}
     .list-header,.list-row{
       display:grid;
-      grid-template-columns:34px 78px minmax(150px,1.45fr) 105px 50px 88px 64px 105px 66px 82px 86px 68px 118px;
+      grid-template-columns:64px 78px minmax(150px,1.45fr) 105px 50px 88px 64px 105px 66px 82px 86px 68px 118px;
       gap:4px;
       align-items:center;
-      min-width:1140px;
+      min-width:1170px;
     }
     .list-header{
       position:sticky;top:0;z-index:4;
@@ -24,7 +24,7 @@
     .list-row{
       padding:4px 6px;
       border-bottom:1px solid #edf0f4;
-      min-height:38px;
+      min-height:64px;
     }
     .list-row:hover{background:#fbfcfd}
     .list-row:last-child{border-bottom:0}
@@ -35,12 +35,12 @@
       font-size:10px!important
     }
     .list-photo{
-      width:30px;height:30px;border:1px dashed #cfd5df;border-radius:6px;
+      width:56px;height:56px;border:1px dashed #cfd5df;border-radius:8px;
       background:#fafafa;display:flex;align-items:center;justify-content:center;
       overflow:hidden;cursor:pointer
     }
     .list-photo img{width:100%;height:100%;object-fit:cover;display:none}
-    .list-photo span{font-size:6px;line-height:1.05;color:var(--muted);text-align:center}
+    .list-photo span{font-size:7px;line-height:1.05;color:var(--muted);text-align:center}
     .list-output,.list-row .readout{
       min-height:27px;height:27px;
       display:flex;align-items:center;
@@ -58,7 +58,7 @@
       grid-template-columns:minmax(180px,1.4fr) 100px 105px 78px 88px 88px 88px 88px 78px;
       gap:5px;align-items:end;
       min-width:980px;
-      padding:5px 8px 7px 42px;
+      padding:5px 8px 7px 72px;
       background:#fafbfc;
       border-bottom:1px solid #edf0f4
     }
@@ -81,8 +81,8 @@
     .list-hidden{display:none!important}
     .items-actions{gap:4px!important}.items-actions button{padding:5px 8px!important;font-size:10px!important}
     @media(max-width:760px){
-      .list-header,.list-row{min-width:1080px}
-      .list-detail{min-width:930px}
+      .list-header,.list-row{min-width:1110px}
+      .list-detail{min-width:960px}
     }
   `;
   document.head.appendChild(style);
