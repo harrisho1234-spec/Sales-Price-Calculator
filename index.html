@@ -49,7 +49,14 @@
     .bulk{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.bulk .field{width:160px}.notice{padding:12px 14px;border-radius:10px;background:#f7f7f8;border:1px solid var(--line);font-size:12px;color:#4b5563}.formula-note{font-size:11px;line-height:1.45;color:var(--muted);max-width:360px}
     .search{min-width:280px;max-width:440px}.badge{display:inline-flex;padding:4px 8px;border-radius:999px;background:#eef0f4;font-size:11px;font-weight:700;color:#596171}.badge.good{background:#eaf7ef;color:#166534}.saved-photo-link{display:inline-block;text-decoration:none;color:inherit}.saved-photo{width:56px;height:56px;border-radius:10px;object-fit:cover;border:1px solid var(--line);background:#f3f4f6;display:block}.saved-photo-placeholder{width:56px;height:56px;border-radius:10px;border:1px dashed #cfd5df;background:#fafafa;color:var(--muted);font-size:10px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.1;padding:4px}
     .empty{padding:34px 16px;text-align:center;color:var(--muted);font-size:13px}.footer{font-size:11px;color:var(--muted);text-align:center;padding:14px 0 6px}
-    .edit-banner{display:none;margin-top:12px;padding:12px 14px;border:1px solid #f0c36a;background:#fff8e7;border-radius:10px;font-size:12px;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.edit-banner.show{display:flex}.compare-card{display:none}.compare-card.show{display:block}.compare-table{min-width:1250px}.row-actions{display:flex;gap:6px;flex-wrap:wrap}.source-current{background:#eef6ff}.source-saved{background:#f8fafc}.compare-check{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);font-weight:700}.compare-check input{width:auto}.history-table{min-width:1500px}
+    .edit-banner{display:none;margin-top:12px;padding:12px 14px;border:1px solid #f0c36a;background:#fff8e7;border-radius:10px;font-size:12px;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.edit-banner.show{display:flex}
+    .save-progress{display:none;margin-top:12px;padding:12px 14px;border:1px solid #dce3ec;background:#f8fafc;border-radius:10px}.save-progress.show{display:block}.save-progress-row{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:12px;font-weight:700}.save-progress-track{height:7px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:9px}.save-progress-bar{height:100%;width:0;background:#111827;transition:width .2s ease}
+    .item-list{display:flex;flex-direction:column;gap:12px}.item-card{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden;box-shadow:0 3px 12px rgba(15,23,42,.035)}.item-card-head{display:grid;grid-template-columns:58px minmax(220px,1.4fr) minmax(420px,2fr) auto;gap:12px;align-items:center;padding:12px 14px;background:#fbfcfd}.item-card.collapsed .item-card-head{background:#fff}.item-card-photo{width:52px;height:52px;border-radius:10px;border:1px solid var(--line);background:#f3f4f6;display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--muted);font-size:9px;text-align:center}.item-card-photo img{width:100%;height:100%;object-fit:cover;display:none}.item-card-identity{min-width:0}.item-card-name{font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.item-card-sub{font-size:11px;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.item-quick{display:grid;grid-template-columns:repeat(4,minmax(88px,1fr));gap:8px}.quick-metric{border-left:1px solid var(--line);padding-left:10px;min-width:0}.quick-metric .qk{font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:800}.quick-metric .qv{font-size:13px;font-weight:800;margin-top:2px;white-space:nowrap}.item-card-actions{display:flex;gap:6px;align-items:center}.item-card-body{padding:14px;border-top:1px solid var(--line);display:grid;gap:12px}.item-card.collapsed .item-card-body{display:none}.item-section{border:1px solid #edf0f4;border-radius:12px;padding:12px;background:#fff}.item-section-title{font-size:11px;font-weight:850;color:#4b5563;text-transform:uppercase;letter-spacing:.035em;margin-bottom:10px}.item-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.item-grid.product{grid-template-columns:100px 1fr 1.2fr 1fr 1.25fr .65fr}.item-field label{margin-bottom:5px}.item-field .readout{min-height:40px;border:1px solid #e3e6ec;border-radius:9px;background:#f8fafc;padding:10px 11px;font-size:14px;font-weight:800}.item-field .readout.good{color:var(--good)}.item-field .readout.bad{color:var(--bad)}.item-photo-box{width:86px;height:86px;border:1px dashed #cfd5df;border-radius:11px;background:#fafafa;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}.item-photo-box img{width:100%;height:100%;object-fit:cover;display:none}.item-photo-box span{font-size:10px;color:var(--muted);text-align:center}.items-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.card-toggle{min-width:88px}.result-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.result-box{background:#f8fafc;border:1px solid #e3e6ec;border-radius:10px;padding:10px}.result-box .rk{font-size:9px;color:var(--muted);font-weight:800;text-transform:uppercase}.result-box .rv{font-size:16px;font-weight:850;margin-top:4px}
+    @media(max-width:1200px){.item-card-head{grid-template-columns:52px minmax(180px,1fr) minmax(320px,1.7fr) auto}.item-grid,.item-grid.product{grid-template-columns:repeat(3,minmax(0,1fr))}.item-photo-field{grid-row:span 2}.item-quick{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){.item-card-head{grid-template-columns:48px 1fr auto}.item-quick{grid-column:1/-1;grid-template-columns:repeat(4,1fr)}.item-card-actions{grid-column:1/-1;justify-content:flex-end}.item-grid,.item-grid.product{grid-template-columns:1fr 1fr}.item-photo-field{grid-column:1/-1;grid-row:auto}.result-strip{grid-template-columns:1fr 1fr}}
+    @media(max-width:500px){.item-grid,.item-grid.product{grid-template-columns:1fr}.item-quick{grid-template-columns:1fr 1fr}.result-strip{grid-template-columns:1fr 1fr}}
+
+    .compare-card{display:none}.compare-card.show{display:block}.compare-table{min-width:1250px}.row-actions{display:flex;gap:6px;flex-wrap:wrap}.source-current{background:#eef6ff}.source-saved{background:#f8fafc}.compare-check{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);font-weight:700}.compare-check input{width:auto}.history-table{min-width:1500px}
     .toast{position:fixed;right:20px;bottom:20px;max-width:460px;padding:13px 16px;border-radius:12px;background:#111827;color:#fff;font-size:13px;box-shadow:0 14px 38px rgba(0,0,0,.22);transform:translateY(20px);opacity:0;pointer-events:none;transition:.2s;z-index:50}.toast.show{transform:translateY(0);opacity:1}.toast.error{background:#7f1d1d}
     @media(max-width:1200px){.grid.settings{grid-template-columns:repeat(3,1fr)}.grid.template-form{grid-template-columns:repeat(3,1fr)}.summary-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:680px){.app{padding:12px}.topbar{align-items:flex-start;flex-direction:column}.brand-icon{width:46px;height:46px}.grid.settings,.grid.template-form{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr 1fr}.toolbar{width:100%}.toolbar button{flex:1}.search{min-width:100%;max-width:none}}
@@ -79,6 +86,10 @@
         <button onclick="newCalculation()">New Calculation</button>
         <button class="primary" id="saveBtn" onclick="saveCalculation()">Save to Google Sheet</button>
       </div>
+      <div id="saveProgress" class="save-progress">
+        <div class="save-progress-row"><span id="saveProgressText">Saving...</span><span id="saveProgressPct">0%</span></div>
+        <div class="save-progress-track"><div id="saveProgressBar" class="save-progress-bar"></div></div>
+      </div>
       <div id="editSavedBanner" class="edit-banner">
         <span id="editSavedText"><b>Editing saved item</b></span>
         <div class="toolbar"><button class="primary" id="updateSavedBtn" onclick="updateCurrentSavedItem()">Update Saved Item</button><button onclick="cancelSavedEdit()">Cancel Edit</button></div>
@@ -99,17 +110,13 @@
     </div>
 
     <div class="card">
-      <div class="card-title"><span>Items</span><span class="muted" id="itemCount">0 items</span></div>
-      <datalist id="brandTemplateList"></datalist>
-      <div class="table-wrap">
-        <table class="items-table">
-          <thead><tr>
-            <th>Photo</th><th>Code / Product</th><th>Brand</th><th>Size / Description</th><th>Qty</th><th>Supplier Cost</th><th>Currency</th><th>Unit Cost USD</th><th>Freight USD</th><th>Landed / Unit</th><th>Formula</th><th>Formula Value</th><th>Calculated Sales / Unit</th><th>Discount</th><th>Discount Value</th><th>Final / Unit</th><th>Actual Sales / Unit</th><th>Profit Total</th><th>Margin</th><th>Markup</th><th></th>
-          </tr></thead>
-          <tbody id="itemsBody"></tbody>
-        </table>
+      <div class="card-title">
+        <span>Items</span>
+        <div class="items-actions"><span class="muted" id="itemCount">0 items</span><button class="small" onclick="expandAllItems()">Expand All</button><button class="small" onclick="collapseAllItems()">Collapse All</button></div>
       </div>
-      <div style="margin-top:12px" class="notice"><b>Brand template:</b> choose a stored brand from the Brand field to apply its pricing formula automatically, or type any brand manually and set the formula yourself.<br><b>Actual Sales Price:</b> if entered, profit and margin use the actual price. If blank, they use Final / Unit.</div>
+      <datalist id="brandTemplateList"></datalist>
+      <div id="itemsCards" class="item-list"></div>
+      <div style="margin-top:12px" class="notice"><b>Compact view:</b> each product shows the important prices in its header. Expand a card only when you need to change details. <b>Brand template:</b> choose a stored brand to apply its formula automatically. <b>Actual Sales Price:</b> if entered, profit and margin use the actual price; otherwise they use Final / Unit.</div>
     </div>
 
     <div class="card">
@@ -218,12 +225,19 @@
   function loadSettings(){try{const s=JSON.parse(localStorage.getItem('spc_settings')||'{}');if(s.cnyRate)$('cnyRate').value=s.cnyRate;if(s.eurRate)$('eurRate').value=s.eurRate;if(s.minMargin!==undefined)$('minMargin').value=s.minMargin}catch(e){}ensureApiUrl()}
 
   function addItem(seed={}){
+    // Keep the working area compact: when a new product is added, collapse the older cards.
+    items.forEach(x=>x.collapsed=true);
     const id=nextId++;
-    items.push({id,photoData:seed.photoData||'',photoThumbData:seed.photoThumbData||'',existingPhotoUrl:seed.existingPhotoUrl||'',photoName:seed.photoName||'',code:seed.code||'',name:seed.name||'',brand:seed.brand||'',sizeDescription:seed.sizeDescription||'',qty:seed.qty||1,supplierCost:seed.supplierCost||0,currency:seed.currency||'CNY',manualFreight:seed.manualFreight||0,formula:seed.formula||'multiplier',formulaValue:seed.formulaValue??2.5,manualPrice:seed.manualPrice||0,discountType:seed.discountType||'percent',discountValue:seed.discountValue||0,actualPrice:seed.actualPrice??'',calc:{}});
+    items.push({id,collapsed:seed.collapsed===undefined?false:!!seed.collapsed,photoData:seed.photoData||'',photoThumbData:seed.photoThumbData||'',existingPhotoUrl:seed.existingPhotoUrl||'',photoName:seed.photoName||'',code:seed.code||'',name:seed.name||'',brand:seed.brand||'',sizeDescription:seed.sizeDescription||'',qty:seed.qty||1,supplierCost:seed.supplierCost||0,currency:seed.currency||'CNY',manualFreight:seed.manualFreight||0,formula:seed.formula||'multiplier',formulaValue:seed.formulaValue??2.5,manualPrice:seed.manualPrice||0,discountType:seed.discountType||'percent',discountValue:seed.discountValue||0,actualPrice:seed.actualPrice??'',calc:{}});
     render();
   }
   function removeItem(id){items=items.filter(x=>x.id!==id);render()}
-  function updateItem(id,field,value){const item=items.find(x=>x.id===id);if(!item)return;if(field==='actualPrice')item[field]=value===''?'':num(value);else if(['qty','supplierCost','manualFreight','formulaValue','manualPrice','discountValue'].includes(field))item[field]=num(value);else item[field]=value;if(field==='formula'){render();return}calculateAll()}
+  function duplicateItem(id){const s=items.find(x=>x.id===id);if(!s)return;addItem({...s,id:undefined,collapsed:false,calc:{}});showToast('Item duplicated.');}
+  function toggleItem(id){const item=items.find(x=>x.id===id);if(!item)return;item.collapsed=!item.collapsed;render();}
+  function expandAllItems(){items.forEach(i=>i.collapsed=false);render()}
+  function collapseAllItems(){items.forEach(i=>i.collapsed=true);render()}
+  function updateCardHeader(item){if(!item)return;setText('summaryTitle-'+item.id,item.name||item.code||('Item '+item.id));setText('summarySub-'+item.id,[item.code,item.brand,item.sizeDescription].filter(Boolean).join(' • ')||'Add product details');}
+  function updateItem(id,field,value){const item=items.find(x=>x.id===id);if(!item)return;if(field==='actualPrice')item[field]=value===''?'':num(value);else if(['qty','supplierCost','manualFreight','formulaValue','manualPrice','discountValue'].includes(field))item[field]=num(value);else item[field]=value;updateCardHeader(item);if(field==='formula'){render();return}calculateAll()}
 
   function applyBrandTemplateIfMatch(id,brand){
     const item=items.find(x=>x.id===id);if(!item)return;
@@ -239,32 +253,70 @@
   function renderBrandDatalist(){const dl=$('brandTemplateList');if(!dl)return;dl.innerHTML=brandTemplates.map(t=>`<option value="${escapeHtml(t.brand)}">${escapeHtml(formulaLabel(t.formula))} ${escapeHtml(t.formulaValue)}</option>`).join('')}
 
   function render(){
-    const body=$('itemsBody');body.innerHTML='';
+    const body=$('itemsCards');body.innerHTML='';
     for(const item of items){
       const match=brandTemplates.find(t=>String(t.brand||'').trim().toLowerCase()===String(item.brand||'').trim().toLowerCase());
-      const tr=document.createElement('tr');
-      tr.innerHTML=`
-        <td><label class="photo-box" for="photo-${item.id}"><img id="img-${item.id}" alt=""><span id="photoText-${item.id}">Add<br>Photo</span></label><input id="photo-${item.id}" type="file" accept="image/*" style="display:none" onchange="handlePhoto(${item.id},this)"></td>
-        <td><input placeholder="Item code" value="${escapeHtml(item.code)}" oninput="updateItem(${item.id},'code',this.value)"><input style="margin-top:6px" placeholder="Product name" value="${escapeHtml(item.name)}" oninput="updateItem(${item.id},'name',this.value)"></td>
-        <td><input list="brandTemplateList" placeholder="Select or type brand" value="${escapeHtml(item.brand)}" oninput="updateItem(${item.id},'brand',this.value)" onchange="applyBrandTemplateIfMatch(${item.id},this.value)"><div class="hint" id="brandHint-${item.id}">${match?'Template: '+escapeHtml(formulaLabel(match.formula))+' '+escapeHtml(match.formulaValue):'Type any brand or select template'}</div></td>
-        <td><input placeholder="Size / description" value="${escapeHtml(item.sizeDescription)}" oninput="updateItem(${item.id},'sizeDescription',this.value)"></td>
-        <td><input type="number" min="0.01" step="1" value="${item.qty}" oninput="updateItem(${item.id},'qty',this.value)"></td>
-        <td><input type="number" min="0" step="0.01" value="${item.supplierCost}" oninput="updateItem(${item.id},'supplierCost',this.value)"></td>
-        <td><select onchange="updateItem(${item.id},'currency',this.value)"><option value="CNY" ${item.currency==='CNY'?'selected':''}>CNY ¥</option><option value="EUR" ${item.currency==='EUR'?'selected':''}>EUR €</option><option value="USD" ${item.currency==='USD'?'selected':''}>USD $</option></select></td>
-        <td class="money" id="unitCost-${item.id}">$0.00</td>
-        <td><input id="manualFreight-${item.id}" type="number" min="0" step="0.01" value="${item.manualFreight}" oninput="updateItem(${item.id},'manualFreight',this.value)"><div class="hint" id="freightHint-${item.id}">Allocated: $0.00</div></td>
-        <td class="money" id="landed-${item.id}">$0.00</td>
-        <td><select onchange="updateItem(${item.id},'formula',this.value)"><option value="multiplier" ${item.formula==='multiplier'?'selected':''}>Multiplier ×</option><option value="markup" ${item.formula==='markup'?'selected':''}>Markup %</option><option value="margin" ${item.formula==='margin'?'selected':''}>Target Margin %</option><option value="manual" ${item.formula==='manual'?'selected':''}>Manual Price</option></select></td>
-        <td><input id="formulaValue-${item.id}" type="number" min="0" step="0.01" value="${item.formula==='manual'?item.manualPrice:item.formulaValue}" oninput="${item.formula==='manual'?`updateItem(${item.id},'manualPrice',this.value)`:`updateItem(${item.id},'formulaValue',this.value)`}"></td>
-        <td class="money" id="sale-${item.id}">$0.00</td>
-        <td><select onchange="updateItem(${item.id},'discountType',this.value)"><option value="percent" ${item.discountType==='percent'?'selected':''}>Percent %</option><option value="amount" ${item.discountType==='amount'?'selected':''}>USD / unit</option></select></td>
-        <td><input type="number" min="0" step="0.01" value="${item.discountValue}" oninput="updateItem(${item.id},'discountValue',this.value)"></td>
-        <td class="money" id="final-${item.id}">$0.00</td>
-        <td><input type="number" min="0" step="0.01" placeholder="Use final price" value="${item.actualPrice===''?'':item.actualPrice}" oninput="updateItem(${item.id},'actualPrice',this.value)"></td>
-        <td class="money" id="profit-${item.id}">$0.00</td><td class="money" id="margin-${item.id}">0.00%</td><td class="money" id="markup-${item.id}">0.00%</td><td><button class="small danger" onclick="removeItem(${item.id})">Remove</button></td>`;
-      body.appendChild(tr);
+      const card=document.createElement('div');
+      card.className='item-card'+(item.collapsed?' collapsed':'');
+      card.id='item-card-'+item.id;
+      card.innerHTML=`
+        <div class="item-card-head">
+          <div class="item-card-photo"><img id="summaryImg-${item.id}" alt=""><span id="summaryPhotoText-${item.id}">No<br>Photo</span></div>
+          <div class="item-card-identity"><div class="item-card-name" id="summaryTitle-${item.id}">${escapeHtml(item.name||item.code||('Item '+item.id))}</div><div class="item-card-sub" id="summarySub-${item.id}">${escapeHtml([item.code,item.brand,item.sizeDescription].filter(Boolean).join(' • ')||'Add product details')}</div></div>
+          <div class="item-quick">
+            <div class="quick-metric"><div class="qk">Landed / Unit</div><div class="qv" id="summaryLanded-${item.id}">$0.00</div></div>
+            <div class="quick-metric"><div class="qk">Final / Unit</div><div class="qv" id="summaryFinal-${item.id}">$0.00</div></div>
+            <div class="quick-metric"><div class="qk">Actual / Used</div><div class="qv" id="summaryUsed-${item.id}">$0.00</div></div>
+            <div class="quick-metric"><div class="qk">Margin</div><div class="qv" id="summaryMargin-${item.id}">0.00%</div></div>
+          </div>
+          <div class="item-card-actions"><button class="small card-toggle" onclick="toggleItem(${item.id})">${item.collapsed?'Edit Details':'Collapse'}</button><button class="small" onclick="duplicateItem(${item.id})">Duplicate</button><button class="small danger" onclick="removeItem(${item.id})">Remove</button></div>
+        </div>
+        <div class="item-card-body">
+          <div class="item-section">
+            <div class="item-section-title">Product</div>
+            <div class="item-grid product">
+              <div class="item-field item-photo-field"><label>Photo</label><label class="item-photo-box" for="photo-${item.id}"><img id="img-${item.id}" alt=""><span id="photoText-${item.id}">Add<br>Photo</span></label><input id="photo-${item.id}" type="file" accept="image/*" style="display:none" onchange="handlePhoto(${item.id},this)"></div>
+              <div class="item-field"><label>Item Code</label><input placeholder="Item code" value="${escapeHtml(item.code)}" oninput="updateItem(${item.id},'code',this.value)"></div>
+              <div class="item-field"><label>Product Name</label><input placeholder="Product name" value="${escapeHtml(item.name)}" oninput="updateItem(${item.id},'name',this.value)"></div>
+              <div class="item-field"><label>Brand</label><input list="brandTemplateList" placeholder="Select or type brand" value="${escapeHtml(item.brand)}" oninput="updateItem(${item.id},'brand',this.value)" onchange="applyBrandTemplateIfMatch(${item.id},this.value)"><div class="hint">${match?'Template: '+escapeHtml(formulaLabel(match.formula))+' '+escapeHtml(match.formulaValue):'Type any brand or select template'}</div></div>
+              <div class="item-field"><label>Size / Description</label><input placeholder="Size / description" value="${escapeHtml(item.sizeDescription)}" oninput="updateItem(${item.id},'sizeDescription',this.value)"></div>
+              <div class="item-field"><label>Qty</label><input type="number" min="0.01" step="1" value="${item.qty}" oninput="updateItem(${item.id},'qty',this.value)"></div>
+            </div>
+          </div>
+          <div class="item-section">
+            <div class="item-section-title">Costing</div>
+            <div class="item-grid">
+              <div class="item-field"><label>Supplier Cost</label><input type="number" min="0" step="0.01" value="${item.supplierCost}" oninput="updateItem(${item.id},'supplierCost',this.value)"></div>
+              <div class="item-field"><label>Currency</label><select onchange="updateItem(${item.id},'currency',this.value)"><option value="CNY" ${item.currency==='CNY'?'selected':''}>CNY ¥</option><option value="EUR" ${item.currency==='EUR'?'selected':''}>EUR €</option><option value="USD" ${item.currency==='USD'?'selected':''}>USD $</option></select></div>
+              <div class="item-field"><label>Unit Cost USD</label><div class="readout money" id="unitCost-${item.id}">$0.00</div></div>
+              <div class="item-field"><label>Freight USD</label><input id="manualFreight-${item.id}" type="number" min="0" step="0.01" value="${item.manualFreight}" oninput="updateItem(${item.id},'manualFreight',this.value)"><div class="hint" id="freightHint-${item.id}">Allocated: $0.00</div></div>
+              <div class="item-field"><label>Landed / Unit</label><div class="readout money" id="landed-${item.id}">$0.00</div></div>
+            </div>
+          </div>
+          <div class="item-section">
+            <div class="item-section-title">Pricing</div>
+            <div class="item-grid">
+              <div class="item-field"><label>Formula</label><select onchange="updateItem(${item.id},'formula',this.value)"><option value="multiplier" ${item.formula==='multiplier'?'selected':''}>Multiplier ×</option><option value="markup" ${item.formula==='markup'?'selected':''}>Markup %</option><option value="margin" ${item.formula==='margin'?'selected':''}>Target Margin %</option><option value="manual" ${item.formula==='manual'?'selected':''}>Manual Price</option></select></div>
+              <div class="item-field"><label>Formula Value</label><input id="formulaValue-${item.id}" type="number" min="0" step="0.01" value="${item.formula==='manual'?item.manualPrice:item.formulaValue}" oninput="${item.formula==='manual'?`updateItem(${item.id},'manualPrice',this.value)`:`updateItem(${item.id},'formulaValue',this.value)`}"></div>
+              <div class="item-field"><label>Calculated Sales / Unit</label><div class="readout money" id="sale-${item.id}">$0.00</div></div>
+              <div class="item-field"><label>Discount Type</label><select onchange="updateItem(${item.id},'discountType',this.value)"><option value="percent" ${item.discountType==='percent'?'selected':''}>Percent %</option><option value="amount" ${item.discountType==='amount'?'selected':''}>USD / unit</option></select></div>
+              <div class="item-field"><label>Discount Value</label><input type="number" min="0" step="0.01" value="${item.discountValue}" oninput="updateItem(${item.id},'discountValue',this.value)"></div>
+              <div class="item-field"><label>Final / Unit</label><div class="readout money" id="final-${item.id}">$0.00</div></div>
+            </div>
+          </div>
+          <div class="item-section">
+            <div class="item-section-title">Sales & Result</div>
+            <div class="item-grid">
+              <div class="item-field"><label>Actual Sales / Unit</label><input type="number" min="0" step="0.01" placeholder="Use final price" value="${item.actualPrice===''?'':item.actualPrice}" oninput="updateItem(${item.id},'actualPrice',this.value)"></div>
+              <div class="item-field"><label>Profit Total</label><div class="readout money" id="profit-${item.id}">$0.00</div></div>
+              <div class="item-field"><label>Margin</label><div class="readout money" id="margin-${item.id}">0.00%</div></div>
+              <div class="item-field"><label>Markup</label><div class="readout money" id="markup-${item.id}">0.00%</div></div>
+            </div>
+          </div>
+        </div>`;
+      body.appendChild(card);
       const previewSrc=item.photoData||item.photoThumbData||(item.existingPhotoUrl?savedPhotoSrc({photoUrl:item.existingPhotoUrl}):'');
-      if(previewSrc){setTimeout(()=>{const img=$('img-'+item.id),tx=$('photoText-'+item.id);if(img){img.src=previewSrc;img.style.display='block'}if(tx)tx.style.display='none'},0)}
+      if(previewSrc){setTimeout(()=>{for(const id of ['img-'+item.id,'summaryImg-'+item.id]){const img=$(id);if(img){img.src=previewSrc;img.style.display='block'}}const tx=$('photoText-'+item.id),st=$('summaryPhotoText-'+item.id);if(tx)tx.style.display='none';if(st)st.style.display='none'},0)}
     }
     $('itemCount').textContent=items.length+(items.length===1?' item':' items');calculateAll();
   }
@@ -282,7 +334,8 @@
       const finalUnit=Math.max(0,saleUnit-discUnit),beforeTotal=saleUnit*qty,finalSuggestedTotal=finalUnit*qty,hasActual=item.actualPrice!==''&&item.actualPrice!==null&&item.actualPrice!==undefined,actualUnit=hasActual?Math.max(0,num(item.actualPrice)):null,priceUsedUnit=hasActual?actualUnit:finalUnit,salesUsedTotal=priceUsedUnit*qty,profit=salesUsedTotal-landedTotal,margin=salesUsedTotal>0?(profit/salesUsedTotal)*100:0,markup=landedTotal>0?(profit/landedTotal)*100:0;
       item.calc={unitCost,totalCost,freight,landedTotal,landedUnit,saleUnit,discUnit,finalUnit,finalSuggestedTotal,actualUnit,priceUsedUnit,beforeTotal,finalTotal:salesUsedTotal,profit,margin,markup};
       setText('unitCost-'+item.id,money(unitCost));setText('freightHint-'+item.id,'Allocated: '+money(freight));setText('landed-'+item.id,money(landedUnit));setText('sale-'+item.id,money(saleUnit));setText('final-'+item.id,money(finalUnit));setText('profit-'+item.id,money(profit));
-      const marginEl=$('margin-'+item.id);if(marginEl){marginEl.textContent=pct(margin);marginEl.className='money '+(margin<minMargin?'metric-bad':margin<minMargin+10?'metric-warn':'metric-good')}setText('markup-'+item.id,pct(markup));const manualInput=$('manualFreight-'+item.id);if(manualInput)manualInput.disabled=$('freightMethod').value!=='manual';
+      setText('summaryLanded-'+item.id,money(landedUnit));setText('summaryFinal-'+item.id,money(finalUnit));setText('summaryUsed-'+item.id,money(priceUsedUnit));setText('summaryMargin-'+item.id,pct(margin));
+      const marginEl=$('margin-'+item.id);if(marginEl){marginEl.textContent=pct(margin);marginEl.className='readout money '+(margin<minMargin?'metric-bad':margin<minMargin+10?'metric-warn':'metric-good')}const summaryMargin=$('summaryMargin-'+item.id);if(summaryMargin)summaryMargin.className='qv '+(margin<minMargin?'metric-bad':margin<minMargin+10?'metric-warn':'metric-good');setText('markup-'+item.id,pct(markup));const manualInput=$('manualFreight-'+item.id);if(manualInput)manualInput.disabled=$('freightMethod').value!=='manual';
       sum.cost+=totalCost;sum.freight+=freight;sum.landed+=landedTotal;sum.before+=beforeTotal;sum.sales+=salesUsedTotal;sum.profit+=profit;sum.qty+=qty;
     }
     updateSummary(sum);
@@ -290,16 +343,35 @@
   function setText(id,txt){const el=$(id);if(el)el.textContent=txt}
   function updateSummary(s){setText('sumCost',money(s.cost));setText('sumFreight',money(s.freight));setText('sumLanded',money(s.landed));setText('sumBefore',money(s.before));setText('sumSales',money(s.sales));setText('sumProfit',money(s.profit));setText('sumQty',Number(s.qty||0).toLocaleString());const margin=s.sales>0?(s.profit/s.sales)*100:0,markup=s.landed>0?(s.profit/s.landed)*100:0;setText('sumMargin',pct(margin));setText('sumMarkup',pct(markup));const minMargin=num($('minMargin').value),m=$('sumMargin');if(m)m.className='v '+(margin<minMargin?'metric-bad':margin<minMargin+10?'metric-warn':'metric-good');const p=$('sumProfit');if(p)p.className='v '+(s.profit>=0?'metric-good':'metric-bad')}
 
-  async function handlePhoto(id,input){const file=input.files&&input.files[0];if(!file)return;try{const [data,thumb]=await Promise.all([compressImage(file,1200,.82),compressImage(file,180,.68)]),item=items.find(x=>x.id===id);if(!item)return;item.photoData=data;item.photoThumbData=thumb;item.photoName=file.name;const img=$('img-'+id),tx=$('photoText-'+id);img.src=data;img.style.display='block';tx.style.display='none'}catch(e){showToast('Could not read this image.',true)}}
-  function compressImage(file,maxSize=1200,quality=.82){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{let w=img.width,h=img.height;const scale=Math.min(1,maxSize/Math.max(w,h));w=Math.round(w*scale);h=Math.round(h*scale);const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);resolve(canvas.toDataURL('image/jpeg',quality))};img.src=reader.result};reader.readAsDataURL(file)})}
+  async function handlePhoto(id,input){const file=input.files&&input.files[0];if(!file)return;try{const [data,thumb]=await Promise.all([compressImage(file,900,.74),compressImage(file,160,.60)]),item=items.find(x=>x.id===id);if(!item)return;item.photoData=data;item.photoThumbData=thumb;item.photoName=file.name;for(const imageId of ['img-'+id,'summaryImg-'+id]){const img=$(imageId);if(img){img.src=data;img.style.display='block'}}const tx=$('photoText-'+id),st=$('summaryPhotoText-'+id);if(tx)tx.style.display='none';if(st)st.style.display='none'}catch(e){showToast('Could not read this image.',true)}}
+  function compressImage(file,maxSize=900,quality=.74){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{let w=img.width,h=img.height;const scale=Math.min(1,maxSize/Math.max(w,h));w=Math.round(w*scale);h=Math.round(h*scale);const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);resolve(canvas.toDataURL('image/jpeg',quality))};img.src=reader.result};reader.readAsDataURL(file)})}
   function applyBulkDiscount(){const type=$('bulkDiscountType').value,value=Math.max(0,num($('bulkDiscountValue').value));items.forEach(i=>{i.discountType=type;i.discountValue=value});render()}
   function newCalculation(){cancelSavedEdit(false);items=[];nextId=1;$('sharedFreight').value=0;$('freightMethod').value='value';addItem();showToast('New calculation started.')}
 
+  function setSaveProgress(text,current=0,total=0,show=true){const box=$('saveProgress');if(!box)return;box.classList.toggle('show',show);setText('saveProgressText',text);const pctValue=total>0?Math.round((current/total)*100):(current>0?100:0);setText('saveProgressPct',pctValue+'%');const bar=$('saveProgressBar');if(bar)bar.style.width=pctValue+'%'}
+  async function runLimited(jobs,limit,worker,onProgress){let next=0,done=0,failed=[];async function runner(){while(true){const idx=next++;if(idx>=jobs.length)return;try{await worker(jobs[idx],idx)}catch(e){failed.push({job:jobs[idx],error:e})}done++;if(onProgress)onProgress(done,jobs.length)}}await Promise.all(Array.from({length:Math.min(limit,jobs.length)},runner));return failed}
+
   async function saveCalculation(){
     calculateAll();if(!items.length){showToast('Add at least one item.',true);return}
-    const calculationId=uid(),payload={action:'saveCalculation',calculationId,cnyRate:num($('cnyRate').value),eurRate:num($('eurRate').value),minimumMargin:num($('minMargin').value),sharedFreight:num($('sharedFreight').value),freightMethod:$('freightMethod').value,items:items.map(i=>({code:i.code,name:i.name,brand:i.brand,sizeDescription:i.sizeDescription,qty:i.qty,supplierCost:i.supplierCost,currency:i.currency,manualFreight:i.manualFreight,formula:i.formula,formulaValue:i.formula==='manual'?i.manualPrice:i.formulaValue,discountType:i.discountType,discountValue:i.discountValue,actualPrice:i.actualPrice,photoData:i.photoData,photoThumbData:i.photoThumbData||'',existingPhotoUrl:i.existingPhotoUrl||'',photoName:i.photoName,calc:i.calc}))};
-    const btn=$('saveBtn');btn.disabled=true;btn.textContent='Saving...';saveSettings();
-    try{const data=await apiPost(payload);showToast(`Saved ${data.rowsSaved} item(s). Calculation ID: ${calculationId}`);savedLoaded=false}catch(e){console.error(e);showToast('Save failed: '+e.message,true)}finally{btn.disabled=false;btn.textContent='Save to Google Sheet'}
+    const calculationId=uid();
+    // Phase 1: save all calculation rows without large photo payloads. This is intentionally fast.
+    const payload={action:'saveCalculation',calculationId,cnyRate:num($('cnyRate').value),eurRate:num($('eurRate').value),minimumMargin:num($('minMargin').value),sharedFreight:num($('sharedFreight').value),freightMethod:$('freightMethod').value,items:items.map(i=>({code:i.code,name:i.name,brand:i.brand,sizeDescription:i.sizeDescription,qty:i.qty,supplierCost:i.supplierCost,currency:i.currency,manualFreight:i.manualFreight,formula:i.formula,formulaValue:i.formula==='manual'?i.manualPrice:i.formulaValue,discountType:i.discountType,discountValue:i.discountValue,actualPrice:i.actualPrice,photoThumbData:i.photoThumbData||'',existingPhotoUrl:i.existingPhotoUrl||'',photoName:i.photoName,calc:i.calc}))};
+    const btn=$('saveBtn');btn.disabled=true;btn.textContent='Saving data...';saveSettings();setSaveProgress(`Saving ${items.length} item(s) to Google Sheet...`,0,1,true);
+    try{
+      const data=await apiPost(payload);setSaveProgress('Calculation data saved.',1,1,true);savedLoaded=false;
+      const rowNumbers=Array.isArray(data.rowNumbers)?data.rowNumbers:[];
+      const photoJobs=items.map((item,index)=>({item,index,rowNumber:rowNumbers[index]})).filter(j=>j.item.photoData&&j.rowNumber);
+      if(photoJobs.length){
+        btn.textContent=`Uploading photos 0/${photoJobs.length}`;setSaveProgress(`Uploading product photos 0/${photoJobs.length}...`,0,photoJobs.length,true);
+        const failed=await runLimited(photoJobs,2,async job=>{
+          const result=await apiPost({action:'uploadItemPhoto',rowNumber:job.rowNumber,calculationId,code:job.item.code,photoData:job.item.photoData,photoThumbData:job.item.photoThumbData||'',photoName:job.item.photoName||''});
+          if(result.photoUrl){job.item.existingPhotoUrl=result.photoUrl;job.item.photoData='';}
+        },(done,total)=>{btn.textContent=`Uploading photos ${done}/${total}`;setSaveProgress(`Uploading product photos ${done}/${total}...`,done,total,true)});
+        if(failed.length){showToast(`Saved ${data.rowsSaved} item(s), but ${failed.length} photo(s) could not upload. The calculation data is safe.`,true)}
+        else showToast(`Saved ${data.rowsSaved} item(s) and ${photoJobs.length} photo(s). Calculation ID: ${calculationId}`);
+      }else showToast(`Saved ${data.rowsSaved} item(s). Calculation ID: ${calculationId}`);
+      setSaveProgress('Save complete.',1,1,true);setTimeout(()=>setSaveProgress('',0,0,false),1600);
+    }catch(e){console.error(e);setSaveProgress('Save failed.',0,1,true);showToast('Save failed: '+e.message,true)}finally{btn.disabled=false;btn.textContent='Save to Google Sheet'}
   }
 
   async function loadSavedItems(){
@@ -338,7 +410,7 @@
   }
   function pullOneSavedItem(row){const x=savedItems.find(v=>v.rowNumber===row);if(x)pullRowsToCalculator([x],false)}
   function loadSelectedSavedToCalculator(){const rows=savedItems.filter(x=>savedSelected.has(x.rowNumber));pullRowsToCalculator(rows,false)}
-  function editSavedItem(row){const x=savedItems.find(v=>v.rowNumber===row);if(!x)return;pullRowsToCalculator([x],true)}
+  function editSavedItem(row){const x=savedItems.find(v=>v.rowNumber===row);if(x)pullRowsToCalculator([x],true)}
   function cancelSavedEdit(showMessage=true){editingSavedTarget=null;const b=$('editSavedBanner');if(b)b.classList.remove('show');if(showMessage)showToast('Saved-item edit cancelled. Current calculator values were left unchanged.')}
   async function updateCurrentSavedItem(){
     if(!editingSavedTarget){showToast('No saved item is being edited.',true);return}if(items.length!==1){showToast('Editing a saved item requires exactly one Calculator row.',true);return}
