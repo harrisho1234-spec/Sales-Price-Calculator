@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sales-price-calculator-v1';
+const CACHE_NAME = 'sales-price-calculator-v2';
 const APP_SHELL = [
   './',
   './index.html',
