@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sales Price Calculator</title>
   <style>
-     :root{
+    :root{
       --bg:#f5f6f8;
       --card:#ffffff;
       --text:#1d2433;
@@ -65,7 +65,7 @@
     .status-dot.ok{background:var(--good)}
     .status-dot.bad{background:var(--bad)}
     .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
-    table{width:100%;border-collapse:collapse;min-width:1850px;background:#fff}
+    table{width:100%;border-collapse:collapse;min-width:2150px;background:#fff}
     th,td{padding:9px;border-bottom:1px solid var(--line);vertical-align:top}
     th{
       background:#f8f9fb;position:sticky;top:0;z-index:2;text-align:left;font-size:11px;
@@ -204,6 +204,7 @@
             <th>Photo</th>
             <th>Code / Product</th>
             <th>Brand</th>
+            <th>Size / Description</th>
             <th>Qty</th>
             <th>Supplier Cost</th>
             <th>Currency</th>
@@ -212,10 +213,11 @@
             <th>Landed / Unit</th>
             <th>Formula</th>
             <th>Formula Value</th>
-            <th>Sales Price / Unit</th>
+            <th>Calculated Sales / Unit</th>
             <th>Discount</th>
             <th>Discount Value</th>
             <th>Final / Unit</th>
+            <th>Actual Sales / Unit</th>
             <th>Profit Total</th>
             <th>Margin</th>
             <th>Markup</th>
@@ -232,6 +234,8 @@
       Markup % = Landed Cost × (1 + markup%).
       Target Margin % = Landed Cost ÷ (1 − target margin%).
       Manual = enter the sales price directly.
+      <br><b>Actual Sales Price:</b> enter the real selling price if it differs from the calculated/final price.
+      If left blank, profit and margin use the Final / Unit price.
     </div>
   </div>
 
@@ -260,7 +264,7 @@
       <div class="metric"><div class="k">Total Freight</div><div class="v" id="sumFreight">$0.00</div></div>
       <div class="metric"><div class="k">Total Landed Cost</div><div class="v" id="sumLanded">$0.00</div></div>
       <div class="metric"><div class="k">Sales Before Discount</div><div class="v" id="sumBefore">$0.00</div></div>
-      <div class="metric"><div class="k">Final Sales</div><div class="v" id="sumSales">$0.00</div></div>
+      <div class="metric"><div class="k">Actual / Final Sales</div><div class="v" id="sumSales">$0.00</div></div>
       <div class="metric"><div class="k">Gross Profit</div><div class="v" id="sumProfit">$0.00</div></div>
     </div>
     <div style="margin-top:12px" class="summary-grid">
@@ -328,6 +332,7 @@
       code:seed.code||'',
       name:seed.name||'',
       brand:seed.brand||'',
+      sizeDescription:seed.sizeDescription||'',
       qty:seed.qty||1,
       supplierCost:seed.supplierCost||0,
       currency:seed.currency||'CNY',
@@ -337,6 +342,7 @@
       manualPrice:seed.manualPrice||0,
       discountType:seed.discountType||'percent',
       discountValue:seed.discountValue||0,
+      actualPrice:seed.actualPrice ?? '',
       calc:{}
     });
     render();
@@ -350,7 +356,8 @@
   function updateItem(id, field, value){
     const item = items.find(x=>x.id===id);
     if(!item) return;
-    if(['qty','supplierCost','manualFreight','formulaValue','manualPrice','discountValue'].includes(field)) item[field]=num(value);
+    if(field === 'actualPrice') item[field] = value === '' ? '' : num(value);
+    else if(['qty','supplierCost','manualFreight','formulaValue','manualPrice','discountValue'].includes(field)) item[field]=num(value);
     else item[field]=value;
 
     // Formula type changes alter what the Formula Value field means,
@@ -380,6 +387,7 @@
           <input style="margin-top:6px" placeholder="Product name" value="${escapeHtml(item.name)}" oninput="updateItem(${item.id},'name',this.value)">
         </td>
         <td><input placeholder="Brand" value="${escapeHtml(item.brand)}" oninput="updateItem(${item.id},'brand',this.value)"></td>
+        <td><input placeholder="Size / description" value="${escapeHtml(item.sizeDescription)}" oninput="updateItem(${item.id},'sizeDescription',this.value)"></td>
         <td><input type="number" min="0.01" step="1" value="${item.qty}" oninput="updateItem(${item.id},'qty',this.value)"></td>
         <td><input type="number" min="0" step="0.01" value="${item.supplierCost}" oninput="updateItem(${item.id},'supplierCost',this.value)"></td>
         <td>
@@ -416,6 +424,11 @@
         </td>
         <td><input type="number" min="0" step="0.01" value="${item.discountValue}" oninput="updateItem(${item.id},'discountValue',this.value)"></td>
         <td class="money" id="final-${item.id}">$0.00</td>
+        <td>
+          <input type="number" min="0" step="0.01" placeholder="Use final price"
+                 value="${item.actualPrice === '' ? '' : item.actualPrice}"
+                 oninput="updateItem(${item.id},'actualPrice',this.value)">
+        </td>
         <td class="money" id="profit-${item.id}">$0.00</td>
         <td class="money" id="margin-${item.id}">0.00%</td>
         <td class="money" id="markup-${item.id}">0.00%</td>
@@ -515,12 +528,22 @@
 
       const finalUnit=Math.max(0,saleUnit-discUnit);
       const beforeTotal=saleUnit*qty;
-      const finalTotal=finalUnit*qty;
-      const profit=finalTotal-landedTotal;
-      const margin=finalTotal>0?(profit/finalTotal)*100:0;
+      const finalSuggestedTotal=finalUnit*qty;
+
+      const hasActualPrice = item.actualPrice !== '' && item.actualPrice !== null && item.actualPrice !== undefined;
+      const actualUnit = hasActualPrice ? Math.max(0,num(item.actualPrice)) : null;
+      const priceUsedUnit = hasActualPrice ? actualUnit : finalUnit;
+      const salesUsedTotal = priceUsedUnit*qty;
+
+      const profit=salesUsedTotal-landedTotal;
+      const margin=salesUsedTotal>0?(profit/salesUsedTotal)*100:0;
       const markup=landedTotal>0?(profit/landedTotal)*100:0;
 
-      item.calc={unitCost,totalCost,freight,landedTotal,landedUnit,saleUnit,discUnit,finalUnit,beforeTotal,finalTotal,profit,margin,markup};
+      item.calc={
+        unitCost,totalCost,freight,landedTotal,landedUnit,saleUnit,discUnit,
+        finalUnit,finalSuggestedTotal,actualUnit,priceUsedUnit,
+        beforeTotal,finalTotal:salesUsedTotal,profit,margin,markup
+      };
 
       setText('unitCost-'+item.id,money(unitCost));
       setText('freightHint-'+item.id,'Allocated: '+money(freight));
@@ -687,6 +710,7 @@
         code:i.code,
         name:i.name,
         brand:i.brand,
+        sizeDescription:i.sizeDescription,
         qty:i.qty,
         supplierCost:i.supplierCost,
         currency:i.currency,
@@ -695,6 +719,7 @@
         formulaValue:i.formula==='manual'?i.manualPrice:i.formulaValue,
         discountType:i.discountType,
         discountValue:i.discountValue,
+        actualPrice:i.actualPrice,
         photoData:i.photoData,
         photoName:i.photoName,
         calc:i.calc
