@@ -6,7 +6,7 @@
   const savedExpandedRows = new Set();
 
   const style = document.createElement('style');
-  style.id = 'saved-items-list-v1';
+  style.id = 'saved-items-list-v2';
   style.textContent = `
     #tab-saved .history-table{display:none!important}
     #tab-saved .table-wrap:has(.history-table){display:none!important}
@@ -20,7 +20,7 @@
     .saved-card-list{display:flex;flex-direction:column;gap:6px}
     .saved-card{border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
     .saved-card.selected{background:#fff9f9;border-color:#e7bcbc}
-    .saved-card-main{display:grid;grid-template-columns:26px 68px minmax(180px,1.5fr) 145px repeat(3,minmax(88px,.65fr)) 138px;gap:8px;align-items:center;padding:7px 8px}
+    .saved-card-main{display:grid;grid-template-columns:26px 68px minmax(180px,1.5fr) 140px minmax(100px,.72fr) repeat(3,minmax(88px,.65fr)) 138px;gap:8px;align-items:center;padding:7px 8px}
     .saved-check{display:flex;justify-content:center}
     .saved-thumb .saved-photo,.saved-thumb .saved-photo-placeholder{width:62px!important;height:62px!important;border-radius:8px!important}
     .saved-product{min-width:0}
@@ -32,23 +32,27 @@
     .saved-metric{border:1px solid #e5e8ed;border-radius:7px;background:#f8fafc;padding:6px 7px;min-width:0}
     .saved-metric .k{font-size:7px;text-transform:uppercase;color:var(--muted);font-weight:800;white-space:nowrap}
     .saved-metric .v{font-size:11px;font-weight:850;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .saved-cost-col{background:#fffdf7;border-color:#eee5cf}
+    .saved-cost-col .v{color:#374151}
     .saved-actions{display:flex;gap:4px;justify-content:flex-end;flex-wrap:wrap}
     .saved-actions button{height:28px!important;padding:4px 7px!important;font-size:9px!important;border-radius:6px!important}
     .saved-card-detail{display:none;padding:7px 8px 8px 102px;background:#fafbfc;border-top:1px solid #edf0f4}
-    .saved-card-detail.show{display:grid;grid-template-columns:minmax(160px,1.4fr) 60px repeat(5,minmax(90px,1fr));gap:7px;align-items:start}
+    .saved-card-detail.show{display:grid;grid-template-columns:minmax(160px,1.4fr) 60px repeat(7,minmax(90px,1fr));gap:7px;align-items:start}
     .saved-detail-box{min-width:0}
     .saved-detail-box .k{font-size:7px;color:var(--muted);font-weight:800;text-transform:uppercase;margin-bottom:2px;white-space:nowrap}
     .saved-detail-box .v{font-size:10px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .saved-list-empty{padding:28px 14px;text-align:center;color:var(--muted);font-size:12px;border:1px solid var(--line);border-radius:10px;background:#fff}
     @media(max-width:1180px){
-      .saved-card-main{grid-template-columns:26px 68px minmax(170px,1.4fr) 130px repeat(2,minmax(90px,.75fr)) 128px}
+      .saved-card-main{grid-template-columns:26px 68px minmax(170px,1.4fr) 125px minmax(95px,.8fr) repeat(2,minmax(90px,.75fr)) 128px}
       .saved-card-main .saved-margin-col{display:none}
       .saved-card-detail.show{padding-left:8px;grid-template-columns:repeat(4,minmax(0,1fr))}
     }
     @media(max-width:760px){
-      .saved-card-main{grid-template-columns:24px 64px 1fr 110px;gap:6px}
+      .saved-card-main{grid-template-columns:24px 64px 1fr 100px;gap:6px}
+      .saved-date{display:none}
+      .saved-cost-col{grid-column:3;grid-row:2}
       .saved-card-main .saved-price-col,.saved-card-main .saved-used-col,.saved-card-main .saved-margin-col{display:none}
-      .saved-actions{grid-column:3/-1;justify-content:flex-start}
+      .saved-actions{grid-column:4;grid-row:2;justify-content:flex-start}
       .saved-card-detail.show{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
   `;
@@ -63,6 +67,14 @@
     if (savedPage < 1) savedPage = 1;
     const start = (savedPage - 1) * savedPageSize;
     return {all, rows: all.slice(start, start + savedPageSize), start, totalPages};
+  }
+
+  function supplierCostText(x){
+    const n = Number(x && x.supplierCost);
+    const amount = Number.isFinite(n) ? n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) : '0.00';
+    const currency = String((x && x.currency) || '').toUpperCase();
+    const symbol = currency === 'CNY' ? '¥' : currency === 'EUR' ? '€' : currency === 'USD' ? '$' : '';
+    return `${symbol}${amount}${currency ? ' ' + currency : ''}`;
   }
 
   function ensureSavedListUI(){
@@ -151,6 +163,7 @@
       const code = x.code || 'No code';
       const meta = [x.brand, x.sizeDescription, x.qty ? 'Qty '+x.qty : ''].filter(Boolean).join(' • ');
       const actualText = x.actualPrice === '' || x.actualPrice === null || x.actualPrice === undefined ? '—' : money(x.actualPrice);
+      const costText = supplierCostText(x);
       return `
         <div class="saved-card ${selected?'selected':''}">
           <div class="saved-card-main">
@@ -165,6 +178,7 @@
               ${escapeHtml(formatDate(x.timestamp))}
               <div><span class="badge">${escapeHtml(x.calculationId || '')}</span></div>
             </div>
+            <div class="saved-metric saved-cost-col"><div class="k">Supplier Cost</div><div class="v">${escapeHtml(costText)}</div></div>
             <div class="saved-metric saved-price-col"><div class="k">Final Price</div><div class="v money">${money(x.finalSuggestedPrice)}</div></div>
             <div class="saved-metric saved-used-col"><div class="k">Actual / Used</div><div class="v money">${actualText === '—' ? money(x.priceUsed) : actualText}</div></div>
             <div class="saved-metric saved-margin-col"><div class="k">Margin</div><div class="v">${pct(x.margin)}</div></div>
@@ -177,6 +191,8 @@
           <div class="saved-card-detail ${expanded?'show':''}">
             <div class="saved-detail-box"><div class="k">Size / Description</div><div class="v">${escapeHtml(x.sizeDescription || '—')}</div></div>
             <div class="saved-detail-box"><div class="k">Qty</div><div class="v">${escapeHtml(x.qty ?? '—')}</div></div>
+            <div class="saved-detail-box"><div class="k">Supplier Cost</div><div class="v">${escapeHtml(costText)}</div></div>
+            <div class="saved-detail-box"><div class="k">Landed / Unit</div><div class="v money">${money(x.landedUnit)}</div></div>
             <div class="saved-detail-box"><div class="k">Calculated</div><div class="v money">${money(x.calculatedPrice)}</div></div>
             <div class="saved-detail-box"><div class="k">Final</div><div class="v money">${money(x.finalSuggestedPrice)}</div></div>
             <div class="saved-detail-box"><div class="k">Actual</div><div class="v money">${actualText}</div></div>
